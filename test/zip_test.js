@@ -21,11 +21,19 @@ var grunt = require('grunt');
 */
 
 exports['zip'] = {
-  setUp: function(done) {
+  setUp: function (done) {
     // setup here
     done();
   },
-  'multiTask': function(test) {
+  'zip': function (test) {
+    test.expect(1);
+    // tests here
+    var expectedContent = grunt.file.read('expected/file.js'),
+        actualContent = grunt.file.read('actual/file.js');
+    test.equal(actualContent, expectedContent, 'should return the correct value.');
+    test.done();
+  },
+  'unzip': function (test) {
     test.expect(1);
     // tests here
     var expectedContent = grunt.file.read('expected/file.js'),

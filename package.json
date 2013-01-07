@@ -39,5 +39,8 @@
     "unzip",
     "compress",
     "decompress"
-  ]
+  ],
+  "dependencies": {
+    "node-zip": "0.0.2"
+  }
 }

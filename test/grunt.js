@@ -8,6 +8,9 @@ module.exports = function (grunt) {
         dest: 'actual/file.js'
       }
     },
+    'unzip': {
+
+    },
     test: {
       all: '*_test.js'
     }
