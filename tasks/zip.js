@@ -74,7 +74,7 @@ module.exports = function(grunt) {
       var input = fs.readFileSync(filepath, 'binary');
 
       // Unzip it
-      var zip = new JSZip(input, {base64: false, checkCRC32: true});
+      var zip = new Zip(input, {base64: false, checkCRC32: true});
 
       // Pluck out the files
       var files = zip.files,
