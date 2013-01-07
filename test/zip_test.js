@@ -20,19 +20,37 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-var fs = require('fs');
+var fs = require('fs'),
+    _ = require('underscore.string');
 exports['zip'] = {
   setUp: function (done) {
     // setup here
     done();
   },
-  'zip': function (test) {
+  'singleZip': function (test) {
     test.expect(1);
-    // tests here
-    var expectedContent = fs.readFileSync('expected/zip/file.zip', 'utf8'),
-        actualContent = fs.readFileSync('actual/zip/file.zip', 'utf8');
-    test.equal(actualContent, expectedContent, 'should return the correct value.');
+
+    // Read in the content
+    var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
+        actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
+
+    // Calculate the difference in bits (accounts for random bits)
+    var difference = _.levenshtein(expectedContent, actualContent);
+
+    // Assert that we are under our threshold
+    var underThreshold = difference <= 10;
+    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
+
+    // Complete the test
     test.done();
+  // },
+  // 'multiZip': function (test) {
+  //   test.expect(1);
+  //   // tests here
+  //   var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
+  //       actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary');
+  //   test.equal(actualContent, expectedContent, 'should return the correct value.');
+  //   test.done();
   // },
   // 'unzip': function (test) {
   //   test.expect(1);

@@ -7,6 +7,7 @@
  */
 
 var fs = require('fs'),
+    path = require('path'),
     Zip = require('node-zip');
 module.exports = function(grunt) {
 
@@ -37,11 +38,14 @@ module.exports = function(grunt) {
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
       var input = fs.readFileSync(filepath, 'binary');
-console.log(input);
 
       // Add it to the zip
       zip.file(filepath, input);
     });
+
+    // Create the destination directory
+    var destDir = path.dirname(dest);
+    grunt.file.mkdir(destDir);
 
     // Write out the content
     // TODO: Allow for options of deflate/no deflate

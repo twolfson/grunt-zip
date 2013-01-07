@@ -3,9 +3,13 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     'zip': {
-      all: {
+      single: {
         src: ['test_files/file.js'],
-        dest: 'actual/zip/file.zip'
+        dest: 'actual/single_zip/file.zip'
+      },
+      multi: {
+        src: ['test_files/file.js', 'test_files/file2.js'],
+        dest: 'actual/multi_zip/file.zip'
       }
     },
     'unzip': {

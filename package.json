@@ -30,7 +30,8 @@
     "test": "grunt --base ./test/ --config ./test/grunt.js"
   },
   "devDependencies": {
-    "grunt": "~0.3.17"
+    "grunt": "~0.3.17",
+    "underscore.string": "~2.3.1"
   },
   "keywords": [
     "gruntplugin",
