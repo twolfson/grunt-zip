@@ -20,6 +20,7 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
+var fs = require('fs');
 exports['zip'] = {
   setUp: function (done) {
     // setup here
@@ -28,17 +29,17 @@ exports['zip'] = {
   'zip': function (test) {
     test.expect(1);
     // tests here
-    var expectedContent = grunt.file.read('expected/file.js'),
-        actualContent = grunt.file.read('actual/file.js');
+    var expectedContent = fs.readFileSync('expected/zip/file.zip', 'binary'),
+        actualContent = fs.readFileSync('actual/zip/file.zip', 'binary');
     test.equal(actualContent, expectedContent, 'should return the correct value.');
     test.done();
-  },
-  'unzip': function (test) {
-    test.expect(1);
-    // tests here
-    var expectedContent = grunt.file.read('expected/file.js'),
-        actualContent = grunt.file.read('actual/file.js');
-    test.equal(actualContent, expectedContent, 'should return the correct value.');
-    test.done();
+  // },
+  // 'unzip': function (test) {
+  //   test.expect(1);
+  //   // tests here
+  //   var expectedContent = grunt.file.read('expected/file.js'),
+  //       actualContent = grunt.file.read('actual/file.js');
+  //   test.equal(actualContent, expectedContent, 'should return the correct value.');
+  //   test.done();
   }
 };

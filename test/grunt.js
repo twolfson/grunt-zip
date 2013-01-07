@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     'zip': {
       all: {
         src: ['test_files/file.js'],
-        dest: 'actual/file.js'
+        dest: 'actual/zip/file.zip'
       }
     },
     'unzip': {
