@@ -1,0 +1,43 @@
+{
+  "name": "grunt-zip",
+  "description": "Zip and unzip files via a grunt plugin",
+  "version": "0.1.0",
+  "homepage": "https://github.com/twolfson/grunt-zip",
+  "author": {
+    "name": "Todd Wolfson",
+    "email": "todd@twolfson.com",
+    "url": "http://twolfson.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/twolfson/grunt-zip.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twolfson/grunt-zip/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/twolfson/grunt-zip/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-zip",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt --base ./test/ --config ./test/grunt.js"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  },
+  "keywords": [
+    "gruntplugin",
+    "grunt",
+    "zip",
+    "unzip",
+    "compress",
+    "decompress"
+  ]
+}
