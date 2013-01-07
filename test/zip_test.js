@@ -29,8 +29,8 @@ exports['zip'] = {
   'zip': function (test) {
     test.expect(1);
     // tests here
-    var expectedContent = fs.readFileSync('expected/zip/file.zip', 'binary'),
-        actualContent = fs.readFileSync('actual/zip/file.zip', 'binary');
+    var expectedContent = fs.readFileSync('expected/zip/file.zip', 'utf8'),
+        actualContent = fs.readFileSync('actual/zip/file.zip', 'utf8');
     test.equal(actualContent, expectedContent, 'should return the correct value.');
     test.done();
   // },

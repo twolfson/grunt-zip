@@ -21,16 +21,23 @@ module.exports = function(grunt) {
     // Collect the filepaths we need
     var file = this.file,
         src = file.src,
-        srcFiles = grunt.file.expand(src),
+        srcFolders = grunt.file.expandDirs(src),
+        srcFiles = grunt.file.expandFiles(src),
         dest = file.dest;
 
     // Generate our zipper
     var zip = new Zip();
 
+    // For each of the srcFolders, add it to the zip
+    srcFolders.forEach(function (folderpath) {
+      zip.folder(folderpath);
+    });
+
     // For each of the srcFiles
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
       var input = fs.readFileSync(filepath, 'binary');
+console.log(input);
 
       // Add it to the zip
       zip.file(filepath, input);
@@ -38,8 +45,8 @@ module.exports = function(grunt) {
 
     // Write out the content
     // TODO: Allow for options of deflate/no deflate
-    var output = zip.generate({base64:false, compression:'DEFLATE'});
-    fs.writeFileSync(dest, output, 'binary');
+    var output = zip.generate({compression: 'DEFLATE'});
+    fs.writeFileSync(dest, output, 'base64');
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }
