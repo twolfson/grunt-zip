@@ -43,14 +43,16 @@ exports['zip'] = {
 
     // Complete the test
     test.done();
-  // },
-  // 'multiZip': function (test) {
-  //   test.expect(1);
-  //   // tests here
-  //   var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
-  //       actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary');
-  //   test.equal(actualContent, expectedContent, 'should return the correct value.');
-  //   test.done();
+  },
+  'multiZip': function (test) {
+    test.expect(1);
+    // tests here
+    var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
+        actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
+        difference = _.levenshtein(expectedContent, actualContent),
+        underThreshold = difference <= 20;
+    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
+    test.done();
   // },
   // 'unzip': function (test) {
   //   test.expect(1);
