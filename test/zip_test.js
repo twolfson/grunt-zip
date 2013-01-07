@@ -53,13 +53,19 @@ exports['zip'] = {
         underThreshold = difference <= 20;
     test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
     test.done();
-  // },
-  // 'unzip': function (test) {
-  //   test.expect(1);
-  //   // tests here
-  //   var expectedContent = grunt.file.read('expected/file.js'),
-  //       actualContent = grunt.file.read('actual/file.js');
-  //   test.equal(actualContent, expectedContent, 'should return the correct value.');
-  //   test.done();
+  },
+  'unzip': function (test) {
+    test.expect(2);
+
+    // tests here
+    var expectedContent = grunt.file.read('expected/unzip/a.js'),
+        actualContent = grunt.file.read('actual/unzip/a.js');
+    test.equal(actualContent, expectedContent, 'should return the correct value for a.js.');
+
+    expectedContent = grunt.file.read('expected/unzip/b.js');
+    actualContent = grunt.file.read('actual/unzip/b.js');
+    test.equal(actualContent, expectedContent, 'should return the correct value for b.js.');
+
+    test.done();
   }
 };

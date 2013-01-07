@@ -49,8 +49,9 @@ module.exports = function(grunt) {
 
     // Write out the content
     // TODO: Allow for options of deflate/no deflate
-    var output = zip.generate({compression: 'DEFLATE'});
-    fs.writeFileSync(dest, output, 'base64');
+    // TODO: Allow for cwd so no absolute paths
+    var output = zip.generate({base64: false, compression: 'DEFLATE'});
+    fs.writeFileSync(dest, output, 'binary');
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }
@@ -63,18 +64,40 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
     var file = this.file,
-        data = this.data,
         src = file.src,
         srcFiles = grunt.file.expand(src),
         dest = file.dest;
 
-    // Concatenate the srcFiles, process the blob through our helper,
-    var separator = data.separator || '\n',
-        srcBlob = grunt.helper('concat', srcFiles, {separator: separator}),
-        content = grunt.helper('zip', srcBlob);
+    // Iterate over the srcFiles
+    srcFiles.forEach(function (filepath) {
+      // Read in the contents
+      var input = fs.readFileSync(filepath, 'binary');
 
-    // Write out the content
-    grunt.file.write(dest, content);
+      // Unzip it
+      var zip = new JSZip(input, {base64: false, checkCRC32: true});
+
+      // Pluck out the files
+      var files = zip.files,
+          filenames = Object.getOwnPropertyNames(files);
+
+
+      // Iterate over the files
+      filenames.forEach(function (filename) {
+        // Find the content
+        var fileObj = files[filename],
+            content = fileObj.data;
+
+        // Determine the filepath
+        var filepath = path.join(dest, filename);
+
+        // Create the destination directory
+        var fileDir = path.dirname(filepath);
+        grunt.file.mkdir(fileDir);
+
+        // Write out the content
+        fs.writeFileSync(filepath, content, 'binary');
+      });
+    });
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }

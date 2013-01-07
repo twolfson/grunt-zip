@@ -13,7 +13,10 @@ module.exports = function (grunt) {
       }
     },
     'unzip': {
-
+      all: {
+        src: 'test_files/file.zip',
+        dest: 'actual/unzip'
+      }
     },
     test: {
       all: '*_test.js'
@@ -24,5 +27,5 @@ module.exports = function (grunt) {
   grunt.loadTasks('../tasks');
 
   // Run project task then tests.
-  grunt.registerTask('default', 'zip test');
+  grunt.registerTask('default', 'zip unzip test');
 };
