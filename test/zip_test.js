@@ -38,7 +38,7 @@ exports['zip'] = {
     var difference = _.levenshtein(expectedContent, actualContent);
 
     // Assert that we are under our threshold
-    var underThreshold = difference <= 10;
+    var underThreshold = difference <= 15;
     test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
 
     // Complete the test
@@ -50,7 +50,7 @@ exports['zip'] = {
     var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
         actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
         difference = _.levenshtein(expectedContent, actualContent),
-        underThreshold = difference <= 20;
+        underThreshold = difference <= 30;
     test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
     test.done();
   },
@@ -83,8 +83,8 @@ exports['zip'] = {
           'js/bootstrap.min.js'
         ];
     files.forEach(function (file) {
-      var expectedContent = grunt.file.read('expected/bootstrap/' + file),
-          actualContent = grunt.file.read('actual/bootstrap/' + file);
+      var expectedContent = grunt.file.read('expected/nested/bootstrap/' + file),
+          actualContent = grunt.file.read('actual/nested/bootstrap/' + file);
       test.equal(actualContent, expectedContent, 'should return the correct value for ' + file);
     });
 

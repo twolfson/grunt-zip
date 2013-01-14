@@ -80,6 +80,35 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
+      // Filter out all non-leaf files
+      filenames = filenames.filter(function filterNonLeafs (filename) {
+        // Iterate over the other filenames
+        var isLeaf = true,
+            i = filenames.length,
+            otherFile,
+            pathToFile,
+            isParentDir;
+        while (i--) {
+          // If the other file is the current file, skip it
+          otherFile = filenames[i];
+          if (otherFile === filename) {
+            continue;
+          }
+
+          // Determine if this file contains the other
+          pathToFile = path.relative(filename, otherFile);
+          isParentDir = pathToFile.indexOf('..') === -1;
+
+          // If it does, falsify isLeaf
+          if (isParentDir) {
+            isLeaf = false;
+            break;
+          }
+        }
+
+        // Return that the file was a leaf
+        return isLeaf;
+      });
 
       // Iterate over the files
       filenames.forEach(function (filename) {
