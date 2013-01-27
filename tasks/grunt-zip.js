@@ -20,27 +20,33 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('zip', 'Zip files together', function() {
     // Collect the filepaths we need
-    var file = this.file,
-        src = file.src,
-        srcFolders = grunt.file.expandDirs(src),
-        srcFiles = grunt.file.expandFiles(src),
-        dest = file.dest;
+    var options = this.options({baseDir: '.'} ),
+		file = this.file,
+        src = this.filesSrc,
+        srcFolders = grunt.file.expand({ filter: 'isDir' }, this.data.src),
+        srcFiles = grunt.file.expand({ filter: 'isFile' }, this.data.src),
+        dest = this.files[0].dest;
 
     // Generate our zipper
     var zip = new Zip();
 
+	grunt.log.writeln( JSON.stringify( this ) );
+	grunt.log.writeln( JSON.stringify( srcFolders ) );
+	grunt.log.writeln( JSON.stringify( srcFiles ) );
     // For each of the srcFolders, add it to the zip
     srcFolders.forEach(function (folderpath) {
-      zip.folder(folderpath);
+      grunt.log.debug( "adding directory: '" + folderpath +"' to archive" );
+      zip.folder(path.relative(options.baseDir, folderpath));
     });
 
     // For each of the srcFiles
     srcFiles.forEach(function (filepath) {
+	  grunt.log.debug( "adding file: '" + filepath +"' to archive" );
       // Read in the content and add it to the zip
       var input = fs.readFileSync(filepath, 'binary');
 
       // Add it to the zip
-      zip.file(filepath, input);
+      zip.file(path.relative(options.baseDir, filepath), input);
     });
 
     // Create the destination directory
@@ -64,9 +70,9 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
     var file = this.file,
-        src = file.src,
+        src = this.filesSrc,
         srcFiles = grunt.file.expand(src),
-        dest = file.dest;
+        dest = this.files[0].dest;
 
     // Iterate over the srcFiles
     srcFiles.forEach(function (filepath) {

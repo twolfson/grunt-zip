@@ -1,7 +1,10 @@
 module.exports = function (grunt) {
 
+  // Load local tasks.
+  grunt.loadTasks('../tasks');
+
   // Project configuration.
-  grunt.initConfig({
+  grunt.config.init({
     zip: {
       single: {
         src: ['test_files/file.js'],
@@ -26,9 +29,6 @@ module.exports = function (grunt) {
       all: '*_test.js'
     }
   });
-
-  // Load local tasks.
-  grunt.loadTasks('../tasks');
 
   // Run project task then tests.
   grunt.registerTask('default', 'zip unzip test');
