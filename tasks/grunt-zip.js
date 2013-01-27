@@ -30,9 +30,6 @@ module.exports = function(grunt) {
     // Generate our zipper
     var zip = new Zip();
 
-	grunt.log.writeln( JSON.stringify( this ) );
-	grunt.log.writeln( JSON.stringify( srcFolders ) );
-	grunt.log.writeln( JSON.stringify( srcFiles ) );
     // For each of the srcFolders, add it to the zip
     srcFolders.forEach(function (folderpath) {
       grunt.log.debug( "adding directory: '" + folderpath +"' to archive" );
