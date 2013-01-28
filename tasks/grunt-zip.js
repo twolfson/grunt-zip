@@ -21,30 +21,49 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('zip', 'Zip files together', function() {
     // Collect the filepaths we need
     var options = this.options({baseDir: '.'} ),
+		baseDir = options.baseDir,
 		file = this.file,
         src = this.filesSrc,
-        srcFolders = grunt.file.expand({ filter: 'isDir' }, this.data.src),
+        srcFolders = grunt.file.expand({ filter: 'isDirectory' }, this.data.src),
         srcFiles = grunt.file.expand({ filter: 'isFile' }, this.data.src),
         dest = this.files[0].dest;
 
     // Generate our zipper
     var zip = new Zip();
 
+	function filterOutEmpties(p) {
+		grunt.log.debug( "keep '" + p +"': " + !!p );
+		return !!p;
+	}
+
+	function relativize(p) {
+		grunt.log.debug( "relativize: '" + p +"' -> " + path.relative(options.baseDir, p) );
+		return path.relative(baseDir, p);
+	}
+
     // For each of the srcFolders, add it to the zip
-    srcFolders.forEach(function (folderpath) {
-      grunt.log.debug( "adding directory: '" + folderpath +"' to archive" );
-      zip.folder(path.relative(options.baseDir, folderpath));
-    });
+    srcFolders.map(relativize).
+		filter(filterOutEmpties).
+		forEach(
+		  function (folderpath) {
+		    grunt.log.debug( "adding directory: '" + folderpath +"' to archive" );
+		    zip.folder(folderpath);
+		  }
+	    );
 
     // For each of the srcFiles
-    srcFiles.forEach(function (filepath) {
-	  grunt.log.debug( "adding file: '" + filepath +"' to archive" );
-      // Read in the content and add it to the zip
-      var input = fs.readFileSync(filepath, 'binary');
+	srcFiles.map(relativize).
+		filter(filterOutEmpties).
+		forEach(
+		  function (filepath) {
+			grunt.log.debug( "adding file '" + filepath +"' to archive" );
+			// Read in the content and add it to the zip
+			var input = fs.readFileSync(path.join(baseDir, filepath), 'binary');
 
-      // Add it to the zip
-      zip.file(path.relative(options.baseDir, filepath), input);
-    });
+			// Add it to the zip
+			zip.file(filepath, input);
+		  }
+	    );
 
     // Create the destination directory
     var destDir = path.dirname(dest);
