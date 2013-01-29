@@ -30,8 +30,8 @@
     "test": "grunt --base ./test/ --config ./test/Grunfile.js"
   },
   "devDependencies": {
-	"grunt": "~0.4.0",
-	"grunt-contrib-jshint": "0.1.x",
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "0.1.x",
     "underscore.string": "~2.3.1"
   },
   "keywords": [
