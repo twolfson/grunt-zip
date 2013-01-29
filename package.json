@@ -21,16 +21,17 @@
       "url": "https://github.com/twolfson/grunt-zip/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "grunt.js",
+  "main": "Gruntfile.js",
   "bin": "bin/grunt-zip",
   "engines": {
     "node": "*"
   },
   "scripts": {
-    "test": "grunt --base ./test/ --config ./test/grunt.js"
+    "test": "grunt --base ./test/ --config ./test/Grunfile.js"
   },
   "devDependencies": {
-    "grunt": "~0.3.17",
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "0.1.x",
     "underscore.string": "~2.3.1"
   },
   "keywords": [
