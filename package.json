@@ -27,7 +27,10 @@
     "node": "*"
   },
   "scripts": {
-    "test": "grunt --base ./test/ --config ./test/grunt.js"
+    "test": "cd test && grunt"
+  },
+  "dependencies": {
+    "node-zip": "0.0.2"
   },
   "devDependencies": {
     "grunt": "~0.3.17",
@@ -40,8 +43,5 @@
     "unzip",
     "compress",
     "decompress"
-  ],
-  "dependencies": {
-    "node-zip": "0.0.2"
-  }
+  ]
 }
