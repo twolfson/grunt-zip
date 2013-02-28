@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "node-zip": "0.0.2",
-    "grunt-retro": "~0.2.1"
+    "grunt-retro": "~0.3.1"
   },
   "_devDependencies": {
     "grunt": "~0.3.17",

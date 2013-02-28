@@ -14,16 +14,6 @@ module.exports = function(grunt) {
   // Load and bind grunt-retro
   grunt = gruntRetro(grunt);
 
-  // Fallback expandDirs and expandFiles
-  // TODO: Relocate into grunt-retro + test
-  var gruntFileExpand = grunt.file.expand;
-  grunt.file.expandDirs = grunt.file.expandDirs || function (files) {
-    return gruntFileExpand({filter: 'isDirectory'}, files);
-  };
-  grunt.file.expandFiles = grunt.file.expandFiles || function (files) {
-    return gruntFileExpand({filter: 'isFile'}, files);
-  };
-
   // Please see the grunt documentation for more information regarding task and
   // helper creation: https://github.com/gruntjs/grunt/blob/master/docs/toc.md
 
