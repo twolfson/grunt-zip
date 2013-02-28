@@ -30,7 +30,8 @@
     "test": "cd test && grunt"
   },
   "dependencies": {
-    "node-zip": "0.0.2"
+    "node-zip": "0.0.2",
+    "grunt-retro": "~0.2.1"
   },
   "_devDependencies": {
     "grunt": "~0.3.17",

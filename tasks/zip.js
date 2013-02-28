@@ -8,8 +8,11 @@
 
 var fs = require('fs'),
     path = require('path'),
-    Zip = require('node-zip');
+    Zip = require('node-zip'),
+    gruntRetro = require('grunt-retro');
 module.exports = function(grunt) {
+  // Load and bind grunt-retro
+  grunt = gruntRetro(grunt);
 
   // Please see the grunt documentation for more information regarding task and
   // helper creation: https://github.com/gruntjs/grunt/blob/master/docs/toc.md
