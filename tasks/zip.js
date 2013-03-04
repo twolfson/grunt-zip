@@ -53,7 +53,8 @@ module.exports = function(grunt) {
     // Write out the content
     // TODO: Allow for options of deflate/no deflate
     // TODO: Allow for cwd so no absolute paths
-    var output = zip.generate({base64: false, compression: 'DEFLATE'});
+    // var output = zip.generate({base64: false, compression: 'DEFLATE'});
+    var output = zip.generate({base64: false});
     fs.writeFileSync(dest, output, 'binary');
 
     // Fail task if errors were logged.

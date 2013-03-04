@@ -17,6 +17,10 @@ module.exports = function (grunt) {
         // src: 'test_files/nested/**',
         src: 'test_files/nested/**/*',
         dest: 'actual/nested_zip/file.zip'
+      },
+      image: {
+        src: 'test_files/nested/glyphicons-halflings.png',
+        dest: 'actual/image_zip/file.zip'
       }
     },
     unzip: {
@@ -31,6 +35,10 @@ module.exports = function (grunt) {
       nested2: {
         src: 'actual/nested_zip/file.zip',
         dest: 'actual/nested_zip2'
+      },
+      image: {
+        src: 'actual/image_zip/file.zip',
+        dest: 'actual/image_zip/unzip'
       }
     },
     test: {
@@ -46,7 +54,11 @@ module.exports = function (grunt) {
   //   console.log(this, arguments);
   // });
 
+  // DEV: jszip has an actual image test
+  // https://github.com/Stuk/jszip/blob/master/test/test.js#L146-L155
+
   // Run project task then tests.
   // grunt.registerTask('default', 'zip unzip test');
-  grunt.registerTask('default', 'zip:nested unzip:nested2');
+  // grunt.registerTask('default', 'zip:nested unzip:nested2');
+  grunt.registerTask('default', 'zip:image unzip:image');
 };
