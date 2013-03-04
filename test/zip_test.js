@@ -54,16 +54,16 @@ exports['zip'] = {
     test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
     test.done();
   },
-  'simpleUnzip': function (test) {
+  'singleUnzip': function (test) {
     test.expect(2);
 
     // tests here
-    var expectedContent = grunt.file.read('expected/unzip/a.js'),
-        actualContent = grunt.file.read('actual/unzip/a.js');
+    var expectedContent = grunt.file.read('expected/single_unzip/a.js'),
+        actualContent = grunt.file.read('actual/single_unzip/a.js');
     test.equal(actualContent, expectedContent, 'should return the correct value for a.js.');
 
-    expectedContent = grunt.file.read('expected/unzip/b.js');
-    actualContent = grunt.file.read('actual/unzip/b.js');
+    expectedContent = grunt.file.read('expected/single_unzip/b.js');
+    actualContent = grunt.file.read('actual/single_unzip/b.js');
     test.equal(actualContent, expectedContent, 'should return the correct value for b.js.');
 
     test.done();
@@ -83,8 +83,8 @@ exports['zip'] = {
           'js/bootstrap.min.js'
         ];
     files.forEach(function (file) {
-      var expectedContent = grunt.file.read('expected/nested/bootstrap/' + file),
-          actualContent = grunt.file.read('actual/nested/bootstrap/' + file);
+      var expectedContent = grunt.file.read('expected/nested_unzip/bootstrap/' + file),
+          actualContent = grunt.file.read('actual/nested_unzip/bootstrap/' + file);
       test.equal(actualContent, expectedContent, 'should return the correct value for ' + file);
     });
 
