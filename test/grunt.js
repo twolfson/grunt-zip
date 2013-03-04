@@ -2,8 +2,8 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: require('../package.json'),
-    // pkg: '<json:package.json>',
+    // pkg: require('../package.json'),
+    pkg2: '<json:../package.json>',
     zip: {
       // single: {
       //   src: ['test_files/file.js'],
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
       //   dest: 'actual/multi_zip/file.zip'
       // },
       // Template in dest test
-      'actual/template_zip/<%= pkg.name %>.zip': ['test_files/file.js']
+      'actual/template_zip/<%= pkg2.name %>.zip': ['test_files/file.js']
     },
     unzip: {
       // simple: {
@@ -33,6 +33,11 @@ module.exports = function (grunt) {
 
   // Load local tasks.
   grunt.loadTasks('../tasks');
+
+  // grunt.registerTask('pkg.name', 'aaa', function () {
+
+  //   console.log(this, arguments);
+  // });
 
   // Run project task then tests.
   grunt.registerTask('default', 'zip unzip test');
