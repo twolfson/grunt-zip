@@ -1,5 +1,9 @@
 module.exports = function (grunt) {
 
+// TODO: Test against grunt@0.4
+// TODO: Test /** without /* suffix
+// TODO: Test compression: 'DEFLATE'
+
   // Project configuration.
   grunt.initConfig({
     pkg: require('../package.json'),
@@ -13,15 +17,13 @@ module.exports = function (grunt) {
         dest: 'actual/multi_zip/file.zip'
       },
       nested: {
-        // I think I already see the problem -- misuse of **
+        // TODO:
         // src: 'test_files/nested/**',
         src: 'test_files/nested/**/*',
         dest: 'actual/nested_zip/file.zip'
       },
       image: {
         src: 'test_files/nested/glyphicons-halflings.png',
-        // src: 'smile.gif',
-        // src: 'glyphicons-halflings.png',
         dest: 'actual/image_zip/file.zip'
       }
     },
@@ -34,11 +36,11 @@ module.exports = function (grunt) {
         src: 'test_files/nested.zip',
         dest: 'actual/nested_unzip'
       },
-      nested2: {
+      'test-zip-nested': {
         src: 'actual/nested_zip/file.zip',
-        dest: 'actual/nested_zip2'
+        dest: 'actual/nested_zip/unzip'
       },
-      image: {
+      'test-zip-image': {
         src: 'actual/image_zip/file.zip',
         dest: 'actual/image_zip/unzip'
       }

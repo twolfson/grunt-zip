@@ -41,11 +41,8 @@ module.exports = function(grunt) {
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
       var input = fs.readFileSync(filepath, 'binary');
-      // var input = fs.readFileSync(filepath, 'base64');
 
       // Add it to the zip
-      // zip.file('smile.gif', 'R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=', {base64: true});
-      // zip.file(filepath, input, {base64: true});
       zip.file(filepath, input, {binary: true});
     });
 
@@ -58,7 +55,6 @@ module.exports = function(grunt) {
     // TODO: Allow for cwd so no absolute paths
     // var output = zip.generate({base64: false, compression: 'DEFLATE'});
     var output = zip.generate({base64: false});
-    // var output = zip.generate();
     fs.writeFileSync(dest, output, 'binary');
 
     // Fail task if errors were logged.
