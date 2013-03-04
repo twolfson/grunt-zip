@@ -43,8 +43,8 @@ module.exports = function(grunt) {
       var input = fs.readFileSync(filepath, 'binary');
 
       // Add it to the zip
-      zip.file('smile.gif', 'R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=', {base64: true});
-      // zip.file(filepath, input);
+      // zip.file('smile.gif', 'R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=', {base64: true});
+      zip.file(filepath, input);
     });
 
     // Create the destination directory
