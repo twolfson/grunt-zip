@@ -65,7 +65,7 @@ exports['zip'] = {
     addMethods(test);
 
     // Assert single_zip is close enough and return
-    test.closeFiles('multi_zip/file.zip', 15);
+    test.closeFiles('multi_zip/file.zip', 30);
     test.done();
   },
   'singleUnzip': function (test) {

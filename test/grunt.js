@@ -1,8 +1,6 @@
 module.exports = function (grunt) {
 
-// TODO: Test against grunt@0.4
 // TODO: Test /** without /* suffix
-// TODO: Test compression: 'DEFLATE'
 
   // Project configuration.
   grunt.initConfig({
