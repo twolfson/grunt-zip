@@ -1,7 +1,5 @@
 module.exports = function (grunt) {
 
-// TODO: Test /** without /* suffix
-
   // Project configuration.
   grunt.initConfig({
     pkg: require('../package.json'),
@@ -15,7 +13,6 @@ module.exports = function (grunt) {
         dest: 'actual/multi_zip/file.zip'
       },
       nested: {
-        // src: 'test_files/nested/**',
         src: 'test_files/nested/**/*',
         dest: 'actual/nested_zip/file.zip'
       },
