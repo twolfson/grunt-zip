@@ -20,6 +20,21 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
+function addMethods(test) {
+  // Assert two files are equal
+  test.equalFiles = function (filename) {
+    var expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
+        actualContent = fs.readFileSync('actual/' + filename, 'binary');
+    test.strictEqual(actualContent, expectedContent, filename + 'does not have the same content in `expected` as `actual`');
+  };
+
+  // Assert two files are close enough
+  // ANTI-PATTERN: 3 specifically ordered/non-modular parameters =(
+  test.closeFiles = function (filename, distance) {
+
+  };
+}
+
 var fs = require('fs'),
     _ = require('underscore.string');
 exports['zip'] = {
@@ -27,79 +42,65 @@ exports['zip'] = {
     // setup here
     done();
   },
-  'singleZip': function (test) {
-    test.expect(1);
+  // 'singleZip': function (test) {
+  //   test.expect(1);
 
-    // Read in the content
-    var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
-        actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
+  //   // Read in the content
+  //   var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
+  //       actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
 
-    // Calculate the difference in bits (accounts for random bits)
-    var difference = _.levenshtein(expectedContent, actualContent);
+  //   // Calculate the difference in bits (accounts for random bits)
+  //   var difference = _.levenshtein(expectedContent, actualContent);
 
-    // Assert that we are under our threshold
-    var underThreshold = difference <= 15;
-    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
+  //   // Assert that we are under our threshold
+  //   var underThreshold = difference <= 15;
+  //   test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
 
-    // Complete the test
-    test.done();
-  },
-  'multiZip': function (test) {
-    test.expect(1);
-    // tests here
-    var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
-        actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
-        difference = _.levenshtein(expectedContent, actualContent),
-        underThreshold = difference <= 30;
-    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
-    test.done();
-  },
+  //   // Complete the test
+  //   test.done();
+  // },
+  // 'multiZip': function (test) {
+  //   test.expect(1);
+  //   // tests here
+  //   var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
+  //       actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
+  //       difference = _.levenshtein(expectedContent, actualContent),
+  //       underThreshold = difference <= 30;
+  //   test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
+  //   test.done();
+  // },
   'singleUnzip': function (test) {
+    // Add in test methods
     test.expect(2);
+    addMethods(test);
 
-    // tests here
-    var expectedContent = grunt.file.read('expected/single_unzip/a.js'),
-        actualContent = grunt.file.read('actual/single_unzip/a.js');
-    test.equal(actualContent, expectedContent, 'should return the correct value for a.js.');
+    // Compare a and b
+    test.equalFiles('single_unzip/a.js');
+    test.equalFiles('single_unzip/b.js');
 
-    expectedContent = grunt.file.read('expected/single_unzip/b.js');
-    actualContent = grunt.file.read('actual/single_unzip/b.js');
-    test.equal(actualContent, expectedContent, 'should return the correct value for b.js.');
-
+    // Return
     test.done();
   },
   'nestedUnzip': function (test) {
     test.expect(8);
+    addMethods(test);
 
-    // Using an anti-pattern for this one
-    var files = [
-          'css/bootstrap-responsive.css',
-          'css/bootstrap-responsive.min.css',
-          'css/bootstrap.css',
-          'css/bootstrap.min.css',
-          'img/glyphicons-halflings-white.png',
-          'img/glyphicons-halflings.png',
-          'js/bootstrap.js',
-          'js/bootstrap.min.js'
-        ];
-    files.forEach(function (file) {
-      var expectedContent = grunt.file.read('expected/nested_unzip/bootstrap/' + file),
-          actualContent = grunt.file.read('actual/nested_unzip/bootstrap/' + file);
-      test.equal(actualContent, expectedContent, 'should return the correct value for ' + file);
-    });
+    // Compare all nested unzip files
+    test.equalFiles('nested_unzip/bootstrap/css/bootstrap-responsive.css');
+    test.equalFiles('nested_unzip/bootstrap/css/bootstrap-responsive.min.css');
+    test.equalFiles('nested_unzip/bootstrap/css/bootstrap.css');
+    test.equalFiles('nested_unzip/bootstrap/css/bootstrap.min.css');
+    test.equalFiles('nested_unzip/bootstrap/img/glyphicons-halflings-white.png');
+    test.equalFiles('nested_unzip/bootstrap/img/glyphicons-halflings.png');
+    test.equalFiles('nested_unzip/bootstrap/js/bootstrap.js');
+    test.equalFiles('nested_unzip/bootstrap/js/bootstrap.min.js');
 
     test.done();
   },
   'image': function (test) {
     test.expect(1);
-
-    // Load in the expected and actual content
-    var filename = 'test_files/image_zip/unzip/test_files/smile.gif',
-        expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
-        actualContent = fs.readFileSync('actual/' + filename, 'binary');
-
-    // Assert they are the same and return
-    test.equal(actualContent, expectedContent, 'should return the correct value.');
+    addMethods(test);
+    test.equalFiles('image_zip/unzip/test_files/smile.gif');
     test.done();
   }
 };

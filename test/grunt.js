@@ -53,7 +53,7 @@ module.exports = function (grunt) {
   grunt.loadTasks('../tasks');
 
   // Run project task then tests.
-  // grunt.registerTask('default', 'zip unzip test');
+  grunt.registerTask('default', 'zip unzip test');
   // grunt.registerTask('default', 'zip:nested unzip:nested2');
-  grunt.registerTask('default', 'zip:image unzip:test-zip-image');
+  // grunt.registerTask('default', 'zip:image unzip:test-zip-image');
 };
