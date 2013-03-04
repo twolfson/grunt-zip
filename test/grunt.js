@@ -14,7 +14,8 @@ module.exports = function (grunt) {
       },
       nested: {
         // I think I already see the problem -- misuse of **
-        src: 'test_files/nested/**',
+        // src: 'test_files/nested/**',
+        src: 'test_files/nested/**/*',
         dest: 'actual/nested_zip/file.zip'
       }
     },
