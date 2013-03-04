@@ -42,33 +42,33 @@ exports['zip'] = {
     // setup here
     done();
   },
-  // 'singleZip': function (test) {
-  //   test.expect(1);
+  'singleZip': function (test) {
+    test.expect(1);
 
-  //   // Read in the content
-  //   var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
-  //       actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
+    // Read in the content
+    var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
+        actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
 
-  //   // Calculate the difference in bits (accounts for random bits)
-  //   var difference = _.levenshtein(expectedContent, actualContent);
+    // Calculate the difference in bits (accounts for random bits)
+    var difference = _.levenshtein(expectedContent, actualContent);
 
-  //   // Assert that we are under our threshold
-  //   var underThreshold = difference <= 15;
-  //   test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
+    // Assert that we are under our threshold
+    var underThreshold = difference <= 15;
+    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
 
-  //   // Complete the test
-  //   test.done();
-  // },
-  // 'multiZip': function (test) {
-  //   test.expect(1);
-  //   // tests here
-  //   var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
-  //       actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
-  //       difference = _.levenshtein(expectedContent, actualContent),
-  //       underThreshold = difference <= 30;
-  //   test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
-  //   test.done();
-  // },
+    // Complete the test
+    test.done();
+  },
+  'multiZip': function (test) {
+    test.expect(1);
+    // tests here
+    var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
+        actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
+        difference = _.levenshtein(expectedContent, actualContent),
+        underThreshold = difference <= 30;
+    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
+    test.done();
+  },
   'singleUnzip': function (test) {
     // Add in test methods
     test.expect(2);
