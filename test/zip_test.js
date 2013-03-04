@@ -23,50 +23,49 @@ var grunt = require('grunt');
 function addMethods(test) {
   // Assert two files are equal
   test.equalFiles = function (filename) {
+    // Read in content
     var expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
         actualContent = fs.readFileSync('actual/' + filename, 'binary');
+
+    // Assert that the content is *exactly* the same
     test.strictEqual(actualContent, expectedContent, filename + 'does not have the same content in `expected` as `actual`');
   };
 
   // Assert two files are close enough
   // ANTI-PATTERN: 3 specifically ordered/non-modular parameters =(
   test.closeFiles = function (filename, distance) {
+    // Read in the content
+    var expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
+        actualContent = fs.readFileSync('actual/' + filename, 'binary');
 
+    // Calculate the difference in bits (accounts for random bits)
+    var difference = _.levenshtein(expectedContent, actualContent);
+
+    // Assert that we are under our threshold
+    var underThreshold = difference <= distance;
+    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under ' + distance + ' (' + filename + ')');
   };
 }
 
 var fs = require('fs'),
     _ = require('underscore.string');
 exports['zip'] = {
-  setUp: function (done) {
-    // setup here
-    done();
-  },
   'singleZip': function (test) {
+    // Set up
     test.expect(1);
+    addMethods(test);
 
-    // Read in the content
-    var expectedContent = fs.readFileSync('expected/single_zip/file.zip', 'binary'),
-        actualContent = fs.readFileSync('actual/single_zip/file.zip', 'binary');
-
-    // Calculate the difference in bits (accounts for random bits)
-    var difference = _.levenshtein(expectedContent, actualContent);
-
-    // Assert that we are under our threshold
-    var underThreshold = difference <= 15;
-    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 10.');
-
-    // Complete the test
+    // Assert single_zip is close enough and return
+    test.closeFiles('single_zip/file.zip', 15);
     test.done();
   },
   'multiZip': function (test) {
+    // Set up
     test.expect(1);
-    // tests here
-    var expectedContent = fs.readFileSync('expected/multi_zip/file.zip', 'binary'),
-        actualContent = fs.readFileSync('actual/multi_zip/file.zip', 'binary'),
-        difference = _.levenshtein(expectedContent, actualContent),
-        underThreshold = difference <= 30;
-    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under 20.');
+    addMethods(test);
+
+    // Assert single_zip is close enough and return
+    test.closeFiles('multi_zip/file.zip', 15);
     test.done();
   },
   'singleUnzip': function (test) {
@@ -98,8 +97,11 @@ exports['zip'] = {
     test.done();
   },
   'image': function (test) {
+    // Set up
     test.expect(1);
     addMethods(test);
+
+    // Assert the image is the same as when it went in
     test.equalFiles('image_zip/unzip/test_files/smile.gif');
     test.done();
   }
