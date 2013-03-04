@@ -11,12 +11,12 @@ module.exports = function (grunt) {
       multi: {
         src: ['test_files/file.js', 'test_files/file2.js'],
         dest: 'actual/multi_zip/file.zip'
-      // },
-      // nested: {
-      //   // I think I already see the problem -- misuse of **
-      //   // src: 'test_files/nested/**',
-      //   src: 'test_files/nested/**/*',
-      //   dest: 'actual/nested_zip/file.zip'
+      },
+      nested: {
+        // I think I already see the problem -- misuse of **
+        // src: 'test_files/nested/**',
+        src: 'test_files/nested/**/*',
+        dest: 'actual/nested_zip/file.zip'
       }
     },
     unzip: {
@@ -27,10 +27,10 @@ module.exports = function (grunt) {
       nested: {
         src: 'test_files/nested.zip',
         dest: 'actual/nested_unzip'
-      // },
-      // nested2: {
-      //   src: 'actual/nested_zip/file.zip',
-      //   dest: 'actual/nested_zip2'
+      },
+      nested2: {
+        src: 'actual/nested_zip/file.zip',
+        dest: 'actual/nested_zip2'
       }
     },
     test: {
@@ -47,6 +47,6 @@ module.exports = function (grunt) {
   // });
 
   // Run project task then tests.
-  grunt.registerTask('default', 'zip unzip test');
-  // grunt.registerTask('default', 'zip:nested unzip:nested2');
+  // grunt.registerTask('default', 'zip unzip test');
+  grunt.registerTask('default', 'zip:nested unzip:nested2');
 };
