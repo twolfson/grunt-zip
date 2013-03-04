@@ -19,7 +19,8 @@ module.exports = function (grunt) {
         dest: 'actual/nested_zip/file.zip'
       },
       image: {
-        src: 'glyphicons-halflings.png',
+        src: 'test_files/nested/glyphicons-halflings.png',
+        // src: 'glyphicons-halflings.png',
         dest: 'actual/image_zip/file.zip'
       }
     },
