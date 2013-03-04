@@ -14,7 +14,8 @@ module.exports = function (grunt) {
       //   dest: 'actual/multi_zip/file.zip'
       // },
       // Template in dest test
-      'actual/template_zip/<%= pkg2.name %>.zip': ['test_files/file.js']
+      // 'actual/template_zip/<%= pkg2.name %>.zip': ['test_files/file.js']
+      'actual/template_zip/aaa.zip': ['<%= pkg2.name %>']
     },
     unzip: {
       // simple: {
