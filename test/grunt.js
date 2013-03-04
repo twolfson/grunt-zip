@@ -2,6 +2,7 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    pkg: require('../package.json'),
     zip: {
       single: {
         src: ['test_files/file.js'],
@@ -10,7 +11,9 @@ module.exports = function (grunt) {
       multi: {
         src: ['test_files/file.js', 'test_files/file2.js'],
         dest: 'actual/multi_zip/file.zip'
-      }
+      },
+      // Template in dest test
+      'actual/template_zip/<%= pkg.name %>.zip': ['test_files/file.js']
     },
     unzip: {
       simple: {
