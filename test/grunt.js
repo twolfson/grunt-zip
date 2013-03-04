@@ -17,13 +17,12 @@ module.exports = function (grunt) {
         dest: 'actual/multi_zip/file.zip'
       },
       nested: {
-        // TODO:
         // src: 'test_files/nested/**',
         src: 'test_files/nested/**/*',
         dest: 'actual/nested_zip/file.zip'
       },
       image: {
-        src: 'test_files/nested/glyphicons-halflings.png',
+        src: 'test_files/smile.gif',
         dest: 'actual/image_zip/file.zip'
       }
     },
@@ -53,16 +52,8 @@ module.exports = function (grunt) {
   // Load local tasks.
   grunt.loadTasks('../tasks');
 
-  // grunt.registerTask('pkg.name', 'aaa', function () {
-
-  //   console.log(this, arguments);
-  // });
-
-  // DEV: jszip has an actual image test
-  // https://github.com/Stuk/jszip/blob/master/test/test.js#L146-L155
-
   // Run project task then tests.
   // grunt.registerTask('default', 'zip unzip test');
   // grunt.registerTask('default', 'zip:nested unzip:nested2');
-  grunt.registerTask('default', 'zip:image unzip:image');
+  grunt.registerTask('default', 'zip:image unzip:test-zip-image');
 };

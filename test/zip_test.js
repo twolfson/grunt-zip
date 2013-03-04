@@ -89,5 +89,17 @@ exports['zip'] = {
     });
 
     test.done();
+  },
+  'image': function (test) {
+    test.expect(1);
+
+    // Load in the expected and actual content
+    var filename = 'test_files/image_zip/unzip/test_files/smile.gif',
+        expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
+        actualContent = fs.readFileSync('actual/' + filename, 'binary');
+
+    // Assert they are the same and return
+    test.equal(actualContent, expectedContent, 'should return the correct value.');
+    test.done();
   }
 };
