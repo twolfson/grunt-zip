@@ -1,4 +1,6 @@
-var grunt = require('grunt');
+var grunt = require('grunt'),
+    fs = require('fs'),
+    _ = require('underscore.string');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -47,8 +49,6 @@ function addMethods(test) {
   };
 }
 
-var fs = require('fs'),
-    _ = require('underscore.string');
 exports['zip'] = {
   'singleZip': function (test) {
     // Set up
