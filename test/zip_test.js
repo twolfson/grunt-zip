@@ -104,5 +104,20 @@ exports['zip'] = {
     // Assert the image is the same as when it went in
     test.equalFiles('image_zip/unzip/test_files/smile.gif');
     test.done();
+  },
+  'nestedZip': function (test) {
+    // Set up
+    test.expect(5);
+    addMethods(test);
+
+    // Assert all files are the same as they went in
+    test.equalFiles('nested_zip/unzip/test_files/nested/hello.js');
+    test.equalFiles('nested_zip/unzip/test_files/nested/world.txt');
+    test.equalFiles('nested_zip/unzip/test_files/nested/glyphicons-halflings.png');
+    test.equalFiles('nested_zip/unzip/test_files/nested/nested2/hello10.txt');
+    test.equalFiles('nested_zip/unzip/test_files/nested/nested2/hello20.js');
+
+    // Return
+    test.done();
   }
 };
