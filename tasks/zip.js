@@ -40,13 +40,13 @@ module.exports = function(grunt) {
     // For each of the srcFiles
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
-      // var input = fs.readFileSync(filepath, 'binary');
-      var input = fs.readFileSync(filepath, 'base64');
+      var input = fs.readFileSync(filepath, 'binary');
+      // var input = fs.readFileSync(filepath, 'base64');
 
       // Add it to the zip
       // zip.file('smile.gif', 'R0lGODdhBQAFAIACAAAAAP/eACwAAAAABQAFAAACCIwPkWerClIBADs=', {base64: true});
-      zip.file(filepath, input, {base64: true});
-      // zip.file(filepath, input);
+      // zip.file(filepath, input, {base64: true});
+      zip.file(filepath, input, {binary: true});
     });
 
     // Create the destination directory
