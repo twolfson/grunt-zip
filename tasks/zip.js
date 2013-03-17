@@ -74,9 +74,11 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
     var file = this.file,
+        data = this.data,
         src = file.src,
         srcFiles = grunt.file.expand(src),
-        dest = file.dest;
+        dest = file.dest,
+        router = data.router || echo;
 
     // Iterate over the srcFiles
     srcFiles.forEach(function (filepath) {
@@ -124,10 +126,12 @@ module.exports = function(grunt) {
       filenames.forEach(function (filename) {
         // Find the content
         var fileObj = files[filename],
-            content = fileObj.data;
+            content = fileObj.data,
+            routedName = router(filename);
+        console.log(routedName);
 
         // Determine the filepath
-        var filepath = path.join(dest, filename);
+        var filepath = path.join(dest, routedName);
 
         // Create the destination directory
         var fileDir = path.dirname(filepath);
