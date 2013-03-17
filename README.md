@@ -32,6 +32,27 @@ grunt.initConfig({
 
       // Destination of zip file
       dest: 'widgets.zip'
+    },
+
+    // Specify working directory to zip from via `cwd`
+    'more-widgets': {
+      cwd: 'nested/'
+      // Files will zip to 'corkscrew.js' and 'sillyStraw.js'
+      src: ['nested/corkscrew.js', 'nested/sillyStraw.js'],
+      dest: 'moreWidgets.zip'
+    },
+
+    // Adjust file paths via `router` for complex cases
+    site: {
+      // Route all files to their filename
+      router: function (filepath) {
+        var filename = path.basename(filepath);
+        return filename;
+      }
+
+      // Files will zip to 'main.js' and 'main.css'
+      src: ['js/main.js', 'css/main.css'],
+      dest: 'site.zip'
     }
   }
 });
@@ -53,6 +74,20 @@ grunt.initConfig({
 
     // Note: If you provide multiple src files, they will all be extracted to the same folder.
     // This is not well-tested behavior so use at your own risk.
+
+    // Adjust file paths of zipped files via `router`
+    site: {
+      // Route all files to their filename
+      router: function (filepath) {
+        var filename = path.basename(filepath);
+        return filename;
+      }
+
+      // Collects all nested files in same directory
+      // css/bootstrap.css -> bootstrap.css, js/bootstrap.js -> bootstrap.js
+      src: 'bootstrap.zip',
+      dest: 'bootstrap/'
+    }
   }
 });
 ```
