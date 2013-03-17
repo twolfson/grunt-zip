@@ -1,4 +1,8 @@
+var path = require('path');
 module.exports = function (grunt) {
+
+  // TODO: Build in `cwd` handling for zip
+  // TODO: Build in `router` handling for unzip
 
   // Project configuration.
   grunt.initConfig({
@@ -19,7 +23,16 @@ module.exports = function (grunt) {
       image: {
         src: 'test_files/smile.gif',
         dest: 'actual/image_zip/file.zip'
+      },
+      router: {
+        src: ['test_files/nested/hello.js', 'test_files/nested2/hello10.txt'],
+        dest: 'actual/router_zip/file.zip',
+        router: function (filepath) {
+          var filename = path.basename(filepath);
+          return filename;
+        }
       }
+      //
     },
     unzip: {
       single: {
@@ -37,6 +50,10 @@ module.exports = function (grunt) {
       'test-zip-image': {
         src: 'actual/image_zip/file.zip',
         dest: 'actual/image_zip/unzip'
+      },
+      'test-zip-router': {
+        src: 'actual/router_zip/zip.js',
+        dest: 'actual/router_zip/unzip'
       }
     },
     test: {
@@ -47,8 +64,11 @@ module.exports = function (grunt) {
   // Load local tasks.
   grunt.loadTasks('../tasks');
 
+  // Load grunt contrib clean (chdir for 0.4)
+  process.chdir('..');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  process.chdir(__dirname);
+
   // Run project task then tests.
-  grunt.registerTask('default', 'zip unzip test');
-  // grunt.registerTask('default', 'zip:nested unzip:nested2');
-  // grunt.registerTask('default', 'zip:image unzip:test-zip-image');
+  grunt.registerTask('default', 'clean zip unzip test');
 };

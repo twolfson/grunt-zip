@@ -21,5 +21,5 @@ module.exports = function (grunt) {
   process.chdir(__dirname);
 
   // Override default task
-  grunt.registerTask('default', ['zip', 'unzip', 'nodeunit']);
+  grunt.registerTask('default', ['clean', 'zip', 'unzip', 'nodeunit']);
 };
