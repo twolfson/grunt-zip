@@ -33,7 +33,6 @@ module.exports = function (grunt) {
           return filename;
         }
       }
-      //
     },
     unzip: {
       single: {
@@ -43,6 +42,14 @@ module.exports = function (grunt) {
       nested: {
         src: 'test_files/nested.zip',
         dest: 'actual/nested_unzip'
+      },
+      router: {
+        src: 'test_files/nested.zip',
+        dest: 'actual/router_unzip',
+        router: function (filepath) {
+          var filename = path.basename(filepath);
+          return filename;
+        }
       },
       'test-zip-nested': {
         src: 'actual/nested_zip/file.zip',

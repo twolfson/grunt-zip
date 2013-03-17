@@ -132,4 +132,20 @@ exports['zip'] = {
     // Return
     test.done();
   },
+  'routerUnzip': function (test) {
+    test.expect(8);
+    addMethods(test);
+
+    // Compare all router unzip files
+    test.equalFiles('router_unzip/bootstrap-responsive.css');
+    test.equalFiles('router_unzip/bootstrap-responsive.min.css');
+    test.equalFiles('router_unzip/bootstrap.css');
+    test.equalFiles('router_unzip/bootstrap.min.css');
+    test.equalFiles('router_unzip/glyphicons-halflings-white.png');
+    test.equalFiles('router_unzip/glyphicons-halflings.png');
+    test.equalFiles('router_unzip/bootstrap.js');
+    test.equalFiles('router_unzip/bootstrap.min.js');
+
+    test.done();
+  }
 };
