@@ -21,9 +21,6 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  function echo(a) {
-    return a;
-  }
   grunt.registerMultiTask('zip', 'Zip files together', function() {
     // Collect the filepaths we need
     var file = this.file,
@@ -32,7 +29,16 @@ module.exports = function(grunt) {
         srcFolders = grunt.file.expandDirs(src),
         srcFiles = grunt.file.expandFiles(src),
         dest = file.dest,
-        router = data.router || echo;
+        router = data.router;
+
+    // If there is no router
+    if (!router) {
+      // Grab the cwd and return the relative path as our router
+      var cwd = data.cwd || process.cwd();
+      router = function routerFn (filepath) {
+        return path.relative(cwd, filepath);
+      };
+    }
 
     // Generate our zipper
     var zip = new Zip();
@@ -70,7 +76,9 @@ module.exports = function(grunt) {
     grunt.log.writeln('File "' + dest + '" created.');
   });
 
-
+  function echo(a) {
+    return a;
+  }
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
     var file = this.file,
