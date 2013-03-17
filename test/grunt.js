@@ -7,6 +7,7 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: require('../package.json'),
+    clean: ['actual/'],
     zip: {
       single: {
         src: ['test_files/file.js'],
@@ -66,7 +67,7 @@ module.exports = function (grunt) {
 
   // Load grunt contrib clean (chdir for 0.4)
   process.chdir('..');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   process.chdir(__dirname);
 
   // Run project task then tests.
