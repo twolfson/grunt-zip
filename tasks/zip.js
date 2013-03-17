@@ -21,29 +21,36 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
+  function echo(a) {
+    return a;
+  }
   grunt.registerMultiTask('zip', 'Zip files together', function() {
     // Collect the filepaths we need
     var file = this.file,
+        data = this.data,
         src = file.src,
         srcFolders = grunt.file.expandDirs(src),
         srcFiles = grunt.file.expandFiles(src),
-        dest = file.dest;
+        dest = file.dest,
+        router = data.router || echo;
 
     // Generate our zipper
     var zip = new Zip();
 
-    // For each of the srcFolders, add it to the zip
+    // For each of the srcFolders, route it and add it to the zip
     srcFolders.forEach(function (folderpath) {
-      zip.folder(folderpath);
+      var routedPath = router(folderpath);
+      zip.folder(routedPath);
     });
 
     // For each of the srcFiles
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
-      var input = fs.readFileSync(filepath, 'binary');
+      var input = fs.readFileSync(filepath, 'binary'),
+          routedPath = router(filepath);
 
       // Add it to the zip
-      zip.file(filepath, input, {binary: true});
+      zip.file(routedPath, input, {binary: true});
     });
 
     // Create the destination directory

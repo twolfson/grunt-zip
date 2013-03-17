@@ -127,7 +127,7 @@ exports['zip'] = {
 
     // Assert all files are the same as they went in
     test.equalFiles('router_zip/unzip/hello.js');
-    test.equalFiles('nested_zip/unzip/hello10.txt');
+    test.equalFiles('router_zip/unzip/hello10.txt');
 
     // Return
     test.done();
