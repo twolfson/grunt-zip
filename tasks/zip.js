@@ -128,7 +128,6 @@ module.exports = function(grunt) {
         var fileObj = files[filename],
             content = fileObj.data,
             routedName = router(filename);
-        console.log(routedName);
 
         // Determine the filepath
         var filepath = path.join(dest, routedName);
