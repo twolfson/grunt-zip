@@ -119,5 +119,17 @@ exports['zip'] = {
 
     // Return
     test.done();
-  }
+  },
+  'routerZip': function (test) {
+    // Set up
+    test.expect(2);
+    addMethods(test);
+
+    // Assert all files are the same as they went in
+    test.equalFiles('router_zip/unzip/hello.js');
+    test.equalFiles('nested_zip/unzip/hello10.txt');
+
+    // Return
+    test.done();
+  },
 };
