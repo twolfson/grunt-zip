@@ -147,5 +147,17 @@ exports['zip'] = {
     test.equalFiles('router_unzip/bootstrap.min.js');
 
     test.done();
+  },
+  'cwdZip': function (test) {
+    // Set up
+    test.expect(2);
+    addMethods(test);
+
+    // Assert all files are the same as they went in
+    test.equalFiles('cwd_zip/unzip/hello.js');
+    test.equalFiles('cwd_zip/unzip/nested2/hello10.txt');
+
+    // Return
+    test.done();
   }
 };
