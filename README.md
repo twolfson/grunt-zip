@@ -44,10 +44,12 @@ grunt.initConfig({
 
     // Adjust file paths via `router` for complex cases
     site: {
-      // Route all files to their filename
+      // `router` receives the path from grunt (e.g. js/main.js)
+      // The path it returns is what the file contents are saved as (e.g. all/main.js)
       router: function (filepath) {
+        // Route each file to all/{{filename}}
         var filename = path.basename(filepath);
-        return filename;
+        return 'all/' + filename;
       }
 
       // Files will zip to 'main.js' and 'main.css'
@@ -77,10 +79,12 @@ grunt.initConfig({
 
     // Adjust file paths of zipped files via `router`
     site: {
-      // Route all files to their filename
+      // `router` receives the path that was used during zipping (e.g. css/bootstrap.css)
+      // The path it returns is where the file contents will be written to (e.g. dist/bootstrap.css)
       router: function (filepath) {
+        // Route each file to dist/{{filename}}
         var filename = path.basename(filepath);
-        return filename;
+        return 'dist/' + filename;
       }
 
       // Collects all nested files in same directory
