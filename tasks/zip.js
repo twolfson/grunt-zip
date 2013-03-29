@@ -31,6 +31,12 @@ module.exports = function(grunt) {
         dest = file.dest,
         router = data.router;
 
+    // Fallback options (e.g. base64, compression)
+    _.defaults(data, {
+      base64: false
+      compression: ''
+    });
+
     // If there is no router
     if (!router) {
       // Grab the cwd and return the relative path as our router
@@ -64,9 +70,7 @@ module.exports = function(grunt) {
     grunt.file.mkdir(destDir);
 
     // Write out the content
-    // TODO: Allow for options of deflate/no deflate
-    // TODO: Allow for cwd so no absolute paths
-    var output = zip.generate({base64: false, compression: 'DEFLATE'});
+    var output = zip.generate({base64: data.base64, compression: data.compression});
     fs.writeFileSync(dest, output, 'binary');
 
     // Fail task if errors were logged.
@@ -88,13 +92,19 @@ module.exports = function(grunt) {
         dest = file.dest,
         router = data.router || echo;
 
+    // Fallback options (e.g. checkCRC32)
+    _.defaults(data, {
+      base64: false,
+      checkCRC32: true
+    });
+
     // Iterate over the srcFiles
     srcFiles.forEach(function (filepath) {
       // Read in the contents
       var input = fs.readFileSync(filepath, 'binary');
 
       // Unzip it
-      var zip = new Zip(input, {base64: false, checkCRC32: true});
+      var zip = new Zip(input, {base64: data.base64, checkCRC32: data.checkCRC32});
 
       // Pluck out the files
       var files = zip.files,

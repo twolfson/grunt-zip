@@ -55,6 +55,18 @@ grunt.initConfig({
       // Files will zip to 'main.js' and 'main.css'
       src: ['js/main.js', 'css/main.css'],
       dest: 'site.zip'
+    },
+
+    // If you want to use the 'DEFLATE' compression algorithm or encode data in base64, you must opt-in to it
+    'even-more-widgets': {
+      src: ['corkscrew.js', 'sillyStraw.js'],
+      dest: 'evenMoreWidgets.zip',
+
+      // Setting for DEFLATE compression
+      compression: 'DEFLATE',
+
+      // Setting for base64 encoding
+      base64: true
     }
   }
 });
@@ -91,7 +103,20 @@ grunt.initConfig({
       // css/bootstrap.css -> bootstrap.css, js/bootstrap.js -> bootstrap.js
       src: 'bootstrap.zip',
       dest: 'bootstrap/'
+    },
+
+    // If you want to disable the CRC32 check or decode data from base64, you must opt-in to it
+    'unzip-more': {
+      src: 'bootstrap.zip',
+      dest: 'public',
+
+      // Setting for disabling the CRC32 check
+      checkCRC32: false,
+
+      // Setting for decoding from base64
+      base64: true
     }
+
   }
 });
 ```
