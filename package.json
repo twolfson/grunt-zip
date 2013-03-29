@@ -1,7 +1,7 @@
 {
   "name": "grunt-zip",
   "description": "Zip and unzip files via a grunt plugin",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "homepage": "https://github.com/twolfson/grunt-zip",
   "author": {
     "name": "Todd Wolfson",
@@ -33,12 +33,12 @@
     "node-zip": "0.0.2",
     "grunt-retro": "~0.5.0"
   },
-  "devDependencies": {
+  "_devDependencies": {
     "grunt": "~0.3.17",
     "underscore.string": "~2.3.1",
     "grunt-contrib-clean": "~0.3.2"
   },
-  "_devDependencies": {
+  "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-nodeunit": "~0.1.2",
     "underscore.string": "~2.3.1",
