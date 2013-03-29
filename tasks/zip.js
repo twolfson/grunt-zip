@@ -21,6 +21,9 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
+  // Localize underscore
+  var _ = grunt.utils._;
+
   grunt.registerMultiTask('zip', 'Zip files together', function() {
     // Collect the filepaths we need
     var file = this.file,
@@ -34,7 +37,6 @@ module.exports = function(grunt) {
     // Fallback options (e.g. base64, compression)
     _.defaults(data, {
       base64: false
-      compression: ''
     });
 
     // If there is no router
