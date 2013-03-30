@@ -159,5 +159,17 @@ exports['zip'] = {
 
     // Return
     test.done();
+  },
+  'dotZip': function (test) {
+    // Set up
+    test.expect(2);
+    addMethods(test);
+
+    // Assert all files are the same as they went in
+    test.equalFiles('cwd_zip/dot/.test/hello.js');
+    test.equalFiles('cwd_zip/dot/test/.examplerc');
+
+    // Return
+    test.done();
   }
 };

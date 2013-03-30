@@ -37,6 +37,11 @@ module.exports = function (grunt) {
         src: ['test_files/nested/hello.js', 'test_files/nested/nested2/hello10.txt'],
         dest: 'actual/cwd_zip/file.zip',
         cwd: 'test_files/nested'
+      },
+      dot: {
+        src: ['test_files/dot/.test/hello.js', 'test_files/dot/test/.examplerc'],
+        dest: 'actual/dot/file.zip',
+        dot: true
       }
     },
     unzip: {
@@ -71,6 +76,10 @@ module.exports = function (grunt) {
       'test-zip-cwd': {
         src: 'actual/cwd_zip/file.zip',
         dest: 'actual/cwd_zip/unzip'
+      },
+      'test-zip-dot': {
+        src: 'actual/dot/file.zip',
+        dest: 'actual/dot/unzip'
       }
     },
     test: {

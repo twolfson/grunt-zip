@@ -25,12 +25,10 @@ module.exports = function(grunt) {
   var _ = grunt.utils._;
 
   grunt.registerMultiTask('zip', 'Zip files together', function() {
-    // Collect the filepaths we need
+    // Localize variables
     var file = this.file,
         data = this.data,
         src = file.src,
-        srcFolders = grunt.file.expandDirs(src),
-        srcFiles = grunt.file.expandFiles(src),
         dest = file.dest,
         router = data.router;
 
@@ -38,6 +36,12 @@ module.exports = function(grunt) {
     _.defaults(data, {
       base64: false
     });
+
+    // Collect our file paths
+    // var globOptions = {dot: data.dot},
+    var globOptions = {},
+        srcFolders = grunt.file.expandDirs(src, globOptions),
+        srcFiles = grunt.file.expandFiles(src, globOptions);
 
     // If there is no router
     if (!router) {
