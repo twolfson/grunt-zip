@@ -57,7 +57,7 @@ grunt.initConfig({
       dest: 'site.zip'
     },
 
-    // If you want to use the 'DEFLATE' compression algorithm or encode data in base64, you must opt-in to it
+    // If you want to use the 'DEFLATE' compression algorithm, encode data in base64, or include dotfiles, you must opt-in to it
     'even-more-widgets': {
       src: ['corkscrew.js', 'sillyStraw.js'],
       dest: 'evenMoreWidgets.zip',
@@ -66,7 +66,10 @@ grunt.initConfig({
       compression: 'DEFLATE',
 
       // Setting for base64 encoding
-      base64: true
+      base64: true,
+
+      // Setting to include dotfiles (e.g. .travis.yml)
+      dot: true
     }
   }
 });
