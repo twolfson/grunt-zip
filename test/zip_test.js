@@ -166,8 +166,8 @@ exports['zip'] = {
     addMethods(test);
 
     // Assert all files are the same as they went in
-    test.equalFiles('cwd_zip/dot/.test/hello.js');
-    test.equalFiles('cwd_zip/dot/test/.examplerc');
+    test.equalFiles('dot_zip/unzip/.test/hello.js');
+    test.equalFiles('dot_zip/unzip/test/.examplerc');
 
     // Return
     test.done();

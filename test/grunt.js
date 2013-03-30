@@ -40,7 +40,7 @@ module.exports = function (grunt) {
       },
       dot: {
         src: ['test_files/dot/.test/hello.js', 'test_files/dot/test/.examplerc'],
-        dest: 'actual/dot/file.zip',
+        dest: 'actual/dot_zip/file.zip',
         dot: true
       }
     },
@@ -78,8 +78,8 @@ module.exports = function (grunt) {
         dest: 'actual/cwd_zip/unzip'
       },
       'test-zip-dot': {
-        src: 'actual/dot/file.zip',
-        dest: 'actual/dot/unzip'
+        src: 'actual/dot_zip/file.zip',
+        dest: 'actual/dot_zip/unzip'
       }
     },
     test: {
