@@ -43,10 +43,10 @@ module.exports = function (grunt) {
       'skip-files': {
         src: ['test_files/nested/hello.js', 'test_files/nested/nested2/hello10.txt'],
         dest: 'actual/skip_files_zip/file.zip',
-        // router: function (filepath) {
-        //   // Skip over txt files
-        //   return filepath.indexOf('.txt') === -1 ? filepath : null;
-        // }
+        router: function (filepath) {
+          // Skip over txt files
+          return filepath.indexOf('.txt') === -1 ? filepath : null;
+        }
       }
     },
     unzip: {
@@ -69,10 +69,10 @@ module.exports = function (grunt) {
       'skip-files': {
         src: 'test_files/nested.zip',
         dest: 'actual/skip_files_unzip',
-        // router: function (filepath) {
-        //   // Skip over css files
-        //   return filepath.indexOf('.css') === -1 ? filepath : null;
-        // }
+        router: function (filepath) {
+          // Skip over css files
+          return filepath.indexOf('.css') === -1 ? filepath : null;
+        }
       },
       'test-zip-nested': {
         src: 'actual/nested_zip/file.zip',
