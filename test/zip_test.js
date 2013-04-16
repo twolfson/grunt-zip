@@ -30,7 +30,7 @@ function addMethods(test) {
         actualContent = fs.readFileSync('actual/' + filename, 'binary');
 
     // Assert that the content is *exactly* the same
-    test.strictEqual(actualContent, expectedContent, filename + 'does not have the same content in `expected` as `actual`');
+    test.strictEqual(actualContent, expectedContent, filename + ' does not have the same content in `expected` as `actual`');
   };
 
   // Assert two files are close enough
@@ -50,12 +50,16 @@ function addMethods(test) {
 
   // Assert file does not exist
   test.noFile = function (filename) {
-    // Grab stats on the would-be location
-    var actualStats = fs.statSync('actual/' + filename);
-    console.log(actualStats);
+    try {
+      // Attempt to grab stats on the would-be location
+      fs.statSync('actual/' + filename);
 
-    // // Assert that the content is *exactly* the same
-    // test.strictEqual(actualContent, expectedContent, filename + 'does not have the same content in `expected` as `actual`');
+      // Fail since there are statistics (should be file not found)
+      test.fail('File "' + filename + '" was found when it was expected to not exist');
+    } catch (e) {
+      // Verify the error is ENOENT
+      test.strictEqual(e.code, 'ENOENT', filename + ' exists');
+    }
   };
 }
 
@@ -184,12 +188,12 @@ exports['zip'] = {
   },
   'skipFilesZip': function (test) {
     // Set up
-    test.expect(1);
+    test.expect(2);
     addMethods(test);
 
     // Assert all files are the same as they went in
     test.equalFiles('skip_files_zip/unzip/test_files/nested/hello.js');
-    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
+    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.2txt');
 
     // Return
     test.done();
