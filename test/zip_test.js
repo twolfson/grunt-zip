@@ -47,6 +47,16 @@ function addMethods(test) {
     var underThreshold = difference <= distance;
     test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under ' + distance + ' (' + filename + ')');
   };
+
+  // Assert file does not exist
+  test.noFile = function (filename) {
+    // Grab stats on the would-be location
+    var actualStats = fs.statSync('actual/' + filename);
+    console.log(actualStats);
+
+    // // Assert that the content is *exactly* the same
+    // test.strictEqual(actualContent, expectedContent, filename + 'does not have the same content in `expected` as `actual`');
+  };
 }
 
 exports['zip'] = {
@@ -171,5 +181,29 @@ exports['zip'] = {
 
     // Return
     test.done();
-  }
+  },
+  'skipFilesZip': function (test) {
+    // Set up
+    test.expect(1);
+    addMethods(test);
+
+    // Assert all files are the same as they went in
+    test.equalFiles('skip_files_zip/unzip/test_files/nested/hello.js');
+    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
+
+    // Return
+    test.done();
+  },
+  // 'skipFilesUnzip': function (test) {
+  //   // Set up
+  //   test.expect(2);
+  //   addMethods(test);
+
+  //   // Assert all files are the same as they went in
+  //   test.equalFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
+  //   test.equalFiles('dot_zip/unzip/test_files/dot/test/.examplerc');
+
+  //   // Return
+  //   test.done();
+  // }
 };
