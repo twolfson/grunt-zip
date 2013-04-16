@@ -1,9 +1,6 @@
 var path = require('path');
 module.exports = function (grunt) {
 
-  // TODO: Build in `cwd` handling for zip
-  // TODO: Build in `router` handling for unzip
-
   // Project configuration.
   grunt.initConfig({
     pkg: require('../package.json'),
@@ -42,6 +39,14 @@ module.exports = function (grunt) {
         src: ['test_files/dot/.test/hello.js', 'test_files/dot/test/.examplerc'],
         dest: 'actual/dot_zip/file.zip',
         dot: true
+      },
+      'skip-files': {
+        src: ['test_files/nested/hello.js', 'test_files/nested/nested2/hello10.txt'],
+        dest: 'actual/skip_files_zip/file.zip',
+        router: function (filepath) {
+          // Skip over txt files
+          return filepath.indexOf('.txt') === -1 ? filepath : null;
+        }
       }
     },
     unzip: {
@@ -59,6 +64,14 @@ module.exports = function (grunt) {
         router: function (filepath) {
           var filename = path.basename(filepath);
           return filename;
+        }
+      },
+      'skip-files': {
+        src: 'test_files/nested.zip',
+        dest: 'actual/skip_files_unzip',
+        router: function (filepath) {
+          // Skip over css files
+          return filepath.indexOf('.css') === -1 ? filepath : null;
         }
       },
       'test-zip-nested': {
@@ -80,6 +93,10 @@ module.exports = function (grunt) {
       'test-zip-dot': {
         src: 'actual/dot_zip/file.zip',
         dest: 'actual/dot_zip/unzip'
+      },
+      'test-zip-skip-files': {
+        src: 'actual/skip_files_zip/file.zip',
+        dest: 'actual/skip_files_zip/unzip'
       }
     },
     test: {
