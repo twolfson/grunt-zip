@@ -54,10 +54,15 @@ module.exports = function(grunt) {
     // Generate our zipper
     var zip = new Zip();
 
-    // For each of the srcFolders, route it and add it to the zip
+    // For each of the srcFolders
     srcFolders.forEach(function (folderpath) {
+      // Route the folder
       var routedPath = router(folderpath);
-      zip.folder(routedPath);
+
+      // If there is a folder, add it to the zip (allows for skipping)
+      if (routedPath) {
+        zip.folder(routedPath);
+      }
     });
 
     // For each of the srcFiles
@@ -66,8 +71,10 @@ module.exports = function(grunt) {
       var input = fs.readFileSync(filepath, 'binary'),
           routedPath = router(filepath);
 
-      // Add it to the zip
-      zip.file(routedPath, input, {binary: true});
+      // If it has a path, add it (allows for skipping)
+      if (routedPath) {
+        zip.file(routedPath, input, {binary: true});
+      }
     });
 
     // Create the destination directory
@@ -152,15 +159,18 @@ module.exports = function(grunt) {
             content = fileObj.data,
             routedName = router(filename);
 
-        // Determine the filepath
-        var filepath = path.join(dest, routedName);
+        // If there is a file path (allows for skipping)
+        if (routedName) {
+          // Determine the filepath
+          var filepath = path.join(dest, routedName);
 
-        // Create the destination directory
-        var fileDir = path.dirname(filepath);
-        grunt.file.mkdir(fileDir);
+          // Create the destination directory
+          var fileDir = path.dirname(filepath);
+          grunt.file.mkdir(fileDir);
 
-        // Write out the content
-        fs.writeFileSync(filepath, content, 'binary');
+          // Write out the content
+          fs.writeFileSync(filepath, content, 'binary');
+        }
       });
     });
 
