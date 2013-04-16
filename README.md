@@ -70,6 +70,26 @@ grunt.initConfig({
 
       // Setting to include dotfiles (e.g. .travis.yml)
       dot: true
+    },
+
+    // Skip/exclude files via `router`
+    zipJsOnly: {
+      // If router returns a falsy varaible, the file will be skipped
+      router: function (filepath) {
+        // Grab the extension
+        var extname = path.extname(filepath);
+
+        // If the file is a .js, add it to the zip
+        if (extname === '.js') {
+          return filepath;
+        } else {
+        // Otherwise, skip it
+          return null;
+        }
+      }
+
+      src: ['js/main.js', 'css/main.css'],
+      dest: 'jsOnly.zip'
     }
   }
 });
@@ -118,7 +138,28 @@ grunt.initConfig({
 
       // Setting for decoding from base64
       base64: true
+    },
+
+    // Skip/exclude files via `router`
+    unzipCssOnly: {
+      // If router returns a falsy varaible, the file will be skipped
+      router: function (filepath) {
+        // Grab the extension
+        var extname = path.extname(filepath);
+
+        // If the file is a .css, extract it
+        if (extname === '.css') {
+          return filepath;
+        } else {
+        // Otherwise, skip it
+          return null;
+        }
+      }
+
+      src: ['bootstrap.css'],
+      dest: 'bootstrap-css/'
     }
+
 
   }
 });
