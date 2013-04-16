@@ -193,7 +193,7 @@ exports['zip'] = {
 
     // Assert all files are the same as they went in
     test.equalFiles('skip_files_zip/unzip/test_files/nested/hello.js');
-    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.2txt');
+    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
 
     // Return
     test.done();
@@ -203,10 +203,10 @@ exports['zip'] = {
     addMethods(test);
 
     // Assert CSS files do not exist
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css2');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.min.css2');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.css2');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.min.css2');
+    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css');
+    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.min.css');
+    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.css');
+    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.min.css');
 
     // Assert other files do exist
     test.equalFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings-white.png');
