@@ -46,6 +46,7 @@ grunt.initConfig({
     site: {
       // `router` receives the path from grunt (e.g. js/main.js)
       // The path it returns is what the file contents are saved as (e.g. all/main.js)
+      // This CANNOT be used with `cwd` since there are potential ordering issues.
       router: function (filepath) {
         // Route each file to all/{{filename}}
         var filename = path.basename(filepath);

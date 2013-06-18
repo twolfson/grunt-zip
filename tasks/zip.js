@@ -49,6 +49,9 @@ module.exports = function(grunt) {
       router = function routerFn (filepath) {
         return path.relative(cwd, filepath);
       };
+    } else if (data.cwd) {
+    // Otherwise, if a `cwd` was specified, throw a fit and leave
+      grunt.fail.warn('grunt-zip does not accept `cwd` and `router` in the same config due to potential ordering complications. Please choose one.');
     }
 
     // Generate our zipper
