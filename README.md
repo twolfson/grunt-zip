@@ -1,4 +1,4 @@
-# grunt-zip
+# grunt-zip [![Donate on Gittip](http://badgr.co/gittip/twolfson.png)](https://www.gittip.com/twolfson/)
 
 Zip and unzip files via a grunt plugin
 
