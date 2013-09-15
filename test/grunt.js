@@ -54,6 +54,9 @@ module.exports = function (grunt) {
         src: 'test_files/file.zip',
         dest: 'actual/single_unzip'
       },
+      'short-format': {
+        '.actual/short': 'test_files/file.zip'
+      },
       nested: {
         src: 'test_files/nested.zip',
         dest: 'actual/nested_unzip'
