@@ -100,12 +100,14 @@ module.exports = function(grunt) {
   }
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
+    console.log('hi');
     var file = this.file,
         data = this.data,
         src = file.src,
         srcFiles = grunt.file.expand(src),
         dest = file.dest,
         router = data.router || echo;
+    console.log('hi there');
 
     // Fallback options (e.g. checkCRC32)
     _.defaults(data, {
