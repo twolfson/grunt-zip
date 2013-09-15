@@ -101,7 +101,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
     // Collect the filepaths we need
     console.log('hi');
-    console.log(this.files);
+    console.log(this.files, this.filesSrc);
+    return;
     var file = this.file,
         data = this.data,
         src = file.src,
