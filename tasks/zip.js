@@ -102,9 +102,11 @@ module.exports = function(grunt) {
     // Collect the filepaths we need
     console.log('hi');
     console.log(this.files, this.filesSrc);
+    console.log(this.file);
     console.log(this.data);
     console.log(this.options);
     return;
+
     var file = this.file,
         data = this.data,
         src = file.src,
