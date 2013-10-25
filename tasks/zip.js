@@ -47,7 +47,8 @@ module.exports = function(grunt) {
       // Grab the cwd and return the relative path as our router
       var cwd = data.cwd || process.cwd();
       router = function routerFn (filepath) {
-        return path.relative(cwd, filepath);
+        // modify the path to always use / as seperator, not \.
+        return path.relative(cwd, filepath).split(path.sep).join('/');
       };
     } else if (data.cwd) {
     // Otherwise, if a `cwd` was specified, throw a fit and leave
