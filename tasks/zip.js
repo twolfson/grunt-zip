@@ -45,11 +45,12 @@ module.exports = function(grunt) {
     // If there is no router
     if (!router) {
       // Grab the cwd and return the relative path as our router
-      var cwd = data.cwd || process.cwd();
+      var cwd = data.cwd || process.cwd(),
+          separator = new RegExp(path.sep.replace('\\', '\\\\'), 'g');
       router = function routerFn (filepath) {
         // Join path via /
         // DEV: Files zipped on Windows need to use /  to have the same layout on Linux
-        return path.relative(cwd, filepath).split(path.sep).join('/');
+        return path.relative(cwd, filepath).replace(separator, '/');
       };
     } else if (data.cwd) {
     // Otherwise, if a `cwd` was specified, throw a fit and leave
