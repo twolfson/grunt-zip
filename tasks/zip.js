@@ -47,7 +47,8 @@ module.exports = function(grunt) {
       // Grab the cwd and return the relative path as our router
       var cwd = data.cwd || process.cwd();
       router = function routerFn (filepath) {
-        // modify the path to always use / as seperator, not \.
+        // Join path via /
+        // DEV: Files zipped on Windows need to use /  to have the same layout on Linux
         return path.relative(cwd, filepath).split(path.sep).join('/');
       };
     } else if (data.cwd) {
