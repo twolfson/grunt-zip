@@ -19,7 +19,6 @@ module.exports = function(grunt) {
 
         strict: false
       },
-      globals: {}
     },
     watch: {
       files: '<config:lint.files>',
