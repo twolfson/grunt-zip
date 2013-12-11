@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.10.2 - Added Travis CI
+
 0.10.1 - Upgraded devDependencies from grunt@0.3 to grunt@0.4
 
 0.10.0 - Fixed Windows -> Linux zip compatibility bug. Via #20
