@@ -157,6 +157,7 @@ module.exports = function(grunt) {
         // Return that the file was a leaf
         return isLeaf;
       });
+      console.log(filenames);
 
       // Iterate over the files
       filenames.forEach(function (filename) {
@@ -172,10 +173,13 @@ module.exports = function(grunt) {
 
           // Create the destination directory
           var fileDir = path.dirname(filepath);
+          console.log(fileDir);
           grunt.file.mkdir(fileDir);
 
           // Write out the content
+          console.log(filepath);
           fs.writeFileSync(filepath, content, 'binary');
+          console.log(filepath);
         }
       });
     });
