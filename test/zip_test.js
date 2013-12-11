@@ -215,5 +215,10 @@ exports['zip'] = {
     test.equalFiles('skip_files_unzip/bootstrap/js/bootstrap.min.js');
 
     test.done();
+  },
+  'emptyUnzip': function (test) {
+    var stats = fs.statSync('actual/empty/double_empty');
+    test.strictEqual(stats.isDirectory(), true);
+    test.done();
   }
 };
