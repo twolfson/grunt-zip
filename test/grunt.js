@@ -1,6 +1,4 @@
-var path = require('path'),
-    mkdirp = require('mkdirp');
-mkdirp.sync(__dirname + '/test_files/empty');
+var path = require('path');
 
 module.exports = function (grunt) {
 
@@ -50,10 +48,6 @@ module.exports = function (grunt) {
           // Skip over txt files
           return filepath.indexOf('.txt') === -1 ? filepath : null;
         }
-      },
-      empty: {
-        src: ['test_files/empty/'],
-        dest: 'actual/empty/file.zip'
       }
     },
     unzip: {
@@ -81,6 +75,10 @@ module.exports = function (grunt) {
           return filepath.indexOf('.css') === -1 ? filepath : null;
         }
       },
+      empty: {
+        src: 'test_files/empty.zip',
+        dest: 'actual/empty'
+      },
       'test-zip-nested': {
         src: 'actual/nested_zip/file.zip',
         dest: 'actual/nested_zip/unzip'
@@ -104,7 +102,7 @@ module.exports = function (grunt) {
       'test-zip-skip-files': {
         src: 'actual/skip_files_zip/file.zip',
         dest: 'actual/skip_files_zip/unzip'
-      }
+      },
     },
     test: {
       common: 'zip_test.js'
@@ -120,5 +118,7 @@ module.exports = function (grunt) {
   process.chdir(__dirname);
 
   // Run project task then tests.
-  grunt.registerTask('default', 'clean zip:empty unzip:empty test:empty');
+  // grunt.registerTask('default', 'clean zip unzip test');
+  // grunt.registerTask('default', 'clean unzip:empty test:empty');
+  grunt.registerTask('default', 'clean unzip:empty');
 };
