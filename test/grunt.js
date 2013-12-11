@@ -118,6 +118,5 @@ module.exports = function (grunt) {
   process.chdir(__dirname);
 
   // Run project task then tests.
-  // grunt.registerTask('default', 'clean zip unzip test');
-  grunt.registerTask('default', 'clean unzip:empty test');
+  grunt.registerTask('default', 'clean zip unzip test');
 };
