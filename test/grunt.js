@@ -76,8 +76,7 @@ module.exports = function (grunt) {
         }
       },
       empty: {
-        src: 'test_files/nested_empty.zip',
-        // dest: 'actual/empty'
+        src: 'test_files/empty.zip',
         dest: 'actual/empty'
       },
       'test-zip-nested': {
