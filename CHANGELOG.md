@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.11.0 - Fixed bug with unzipping empty directories. Fixes #21
+
 0.10.2 - Added Travis CI
 
 0.10.1 - Upgraded devDependencies from grunt@0.3 to grunt@0.4
