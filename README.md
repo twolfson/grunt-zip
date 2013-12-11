@@ -1,4 +1,4 @@
-# grunt-zip [![Donate on Gittip](http://badgr.co/gittip/twolfson.png)](https://www.gittip.com/twolfson/)
+# grunt-zip [![Build status](https://travis-ci.org/twolfson/grunt-zip.png?branch=master)](https://travis-ci.org/twolfson/grunt-zip)
 
 Zip and unzip files via a grunt plugin
 
@@ -168,6 +168,14 @@ grunt.initConfig({
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint your code using [grunt][grunt] and test via `npm test`.
+
+## Donating
+Support this project and [others by twolfson][gittip] via [gittip][].
+
+[![Support via Gittip][gittip-badge]][gittip]
+
+[gittip-badge]: https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png
+[gittip]: https://www.gittip.com/twolfson/
 
 ## License
 Copyright (c) 2013 Todd Wolfson
