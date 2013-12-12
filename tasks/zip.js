@@ -170,25 +170,17 @@ module.exports = function(grunt) {
           // Determine the filepath
           var filepath = path.join(dest, routedName);
 
-          // Create the destination directory
-          var fileDir = path.dirname(filepath);
-          grunt.file.mkdir(fileDir);
+          // If the routedName ends in a `/`, treat it as a/an (empty) directory
+          console.log(routedName, routedName.slice(-1));
+          if (routedName.slice(-1) === '/') {
+            grunt.file.mkdir(filepath);
+          } else {
+            // Create the destination directory
+            var fileDir = path.dirname(filepath);
 
-          // Write out the content
-          console.log('dir', fileDir);
-          console.log('path', filepath);
-          try {
+            // Write out the content
+            grunt.file.mkdir(fileDir);
             fs.writeFileSync(filepath, content, 'binary');
-          } catch (e) {
-            // If we misidentified a leaf as a directory (e.g. it's empty), create it
-            console.log('error', e);
-            console.log('error code', e.code);
-            if (e.code === 'EISDIR' || e.code === 'ENOENT') {
-              grunt.file.mkdir(filepath);
-            } else {
-            // Otherwise, throw the error
-              throw e;
-            }
           }
         }
       });
