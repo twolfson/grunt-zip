@@ -171,7 +171,7 @@ module.exports = function(grunt) {
           var filepath = path.join(dest, routedName);
 
           // If the routedName ends in a `/`, treat it as a/an (empty) directory
-          console.log(routedName, routedName.slice(-1));
+          // DEV: We use `/` over path.sep since it is consistently `/` across all platforms
           if (routedName.slice(-1) === '/') {
             grunt.file.mkdir(filepath);
           } else {
