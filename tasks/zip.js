@@ -175,10 +175,14 @@ module.exports = function(grunt) {
           grunt.file.mkdir(fileDir);
 
           // Write out the content
+          console.log('dir', fileDir);
+          console.log('path', filepath);
           try {
             fs.writeFileSync(filepath, content, 'binary');
           } catch (e) {
             // If we misidentified a leaf as a directory (e.g. it's empty), create it
+            console.log('error', e);
+            console.log('error code', e.code);
             if (e.code === 'EISDIR') {
               grunt.file.mkdir(filepath);
             } else {
