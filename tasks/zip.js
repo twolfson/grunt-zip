@@ -183,7 +183,7 @@ module.exports = function(grunt) {
             // If we misidentified a leaf as a directory (e.g. it's empty), create it
             console.log('error', e);
             console.log('error code', e.code);
-            if (e.code === 'EISDIR') {
+            if (e.code === 'EISDIR' || e.code === 'ENOENT') {
               grunt.file.mkdir(filepath);
             } else {
             // Otherwise, throw the error
