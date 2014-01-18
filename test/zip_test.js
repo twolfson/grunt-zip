@@ -204,7 +204,7 @@ exports['zip'] = {
 
     // Assert file size is under 10kb (does not include `..`)
     var stat = fs.statSync('actual/cwd_globstar_zip/file.zip');
-    test.ok(stat.size < 10e3, 'Expected: < 10e3, Actual: ' + stat.size);
+    test.ok(stat.size < 20e3, 'Expected: < 20e3, Actual: ' + stat.size);
 
     test.done();
   },
