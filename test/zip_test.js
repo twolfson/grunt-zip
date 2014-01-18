@@ -198,6 +198,16 @@ exports['zip'] = {
     // Return
     test.done();
   },
+  // DEV: Regression test for https://github.com/twolfson/grunt-zip/issues/16#issuecomment-32614776
+  cwdGlobstarZip: function (test) {
+    test.expect(1);
+
+    // Assert file size is under 10kb (does not include `..`)
+    var stat = fs.statSync('actual/cwd_globstar_zip/file.zip');
+    test.ok(stat.size < 10e3, 'Expected: < 10e3, Actual: ' + stat.size);
+
+    test.done();
+  },
   'skipFilesUnzip': function (test) {
     test.expect(8);
     addMethods(test);

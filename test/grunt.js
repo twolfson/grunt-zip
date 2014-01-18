@@ -48,6 +48,11 @@ module.exports = function (grunt) {
           // Skip over txt files
           return filepath.indexOf('.txt') === -1 ? filepath : null;
         }
+      },
+      'cwd-globstar': {
+        cwd: 'test_files/nested',
+        src: '**/*',
+        dest: 'actual/cwd_globstar_zip/file.zip'
       }
     },
     unzip: {
