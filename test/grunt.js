@@ -33,8 +33,8 @@ module.exports = function (grunt) {
       },
       cwd: {
         cwd: 'test_files/nested',
-        src: ['hello.js', 'nested2/hello10.txt'],
-        dest: 'actual/cwd_zip/file.zip',
+        src: ['test_files/nested/hello.js', 'test_files/nested/nested2/hello10.txt'],
+        dest: 'actual/cwd_zip/file.zip'
       },
       dot: {
         src: ['test_files/dot/.test/hello.js', 'test_files/dot/test/.examplerc'],
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
       },
       'cwd-globstar': {
         cwd: 'test_files/nested',
-        src: '**/*',
+        src: 'test_files/nested/**/*',
         dest: 'actual/cwd_globstar_zip/file.zip'
       }
     },
