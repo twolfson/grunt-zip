@@ -38,21 +38,19 @@ module.exports = function(grunt) {
     });
 
     // Collect our file paths
-    var cwd = data.cwd || process.cwd(),
-        globOptions = {dot: data.dot},
+    var globOptions = {dot: data.dot},
         srcFolders = grunt.file.expandDirs(globOptions, src),
         srcFiles = grunt.file.expandFiles(globOptions, src);
-
-    console.log(cwd, srcFiles, srcFolders);
 
     // If there is no router
     if (!router) {
       // Grab the cwd and return the relative path as our router
-      var separator = new RegExp(path.sep.replace('\\', '\\\\'), 'g');
-      router = function routerFn (cwdpath) {
+      var cwd = data.cwd || process.cwd(),
+          separator = new RegExp(path.sep.replace('\\', '\\\\'), 'g');
+      router = function routerFn (filepath) {
         // Join path via /
         // DEV: Files zipped on Windows need to use /  to have the same layout on Linux
-        return cwdpath.replace(separator, '/');
+        return path.relative(cwd, filepath).replace(separator, '/');
       };
     } else if (data.cwd) {
     // Otherwise, if a `cwd` was specified, throw a fit and leave
@@ -74,11 +72,10 @@ module.exports = function(grunt) {
     });
 
     // For each of the srcFiles
-    srcFiles.forEach(function (cwdpath) {
+    srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
-      var filepath = path.join(cwd, cwdpath),
-          input = fs.readFileSync(filepath, 'binary'),
-          routedPath = router(cwdpath);
+      var input = fs.readFileSync(filepath, 'binary'),
+          routedPath = router(filepath);
 
       // If it has a path, add it (allows for skipping)
       if (routedPath) {
