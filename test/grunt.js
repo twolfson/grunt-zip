@@ -32,9 +32,9 @@ module.exports = function (grunt) {
         }
       },
       cwd: {
-        src: ['test_files/nested/hello.js', 'test_files/nested/nested2/hello10.txt'],
+        cwd: 'test_files/nested',
+        src: ['hello.js', 'nested2/hello10.txt'],
         dest: 'actual/cwd_zip/file.zip',
-        cwd: 'test_files/nested'
       },
       dot: {
         src: ['test_files/dot/.test/hello.js', 'test_files/dot/test/.examplerc'],

@@ -39,9 +39,11 @@ module.exports = function(grunt) {
 
     // Collect our file paths
     var cwd = data.cwd || process.cwd(),
-        globOptions = {dot: data.dot, cwd: cwd},
+        globOptions = {dot: data.dot},
         srcFolders = grunt.file.expandDirs(globOptions, src),
         srcFiles = grunt.file.expandFiles(globOptions, src);
+
+    console.log(cwd, srcFiles, srcFolders);
 
     // If there is no router
     if (!router) {
