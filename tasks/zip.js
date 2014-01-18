@@ -47,10 +47,10 @@ module.exports = function(grunt) {
     if (!router) {
       // Grab the cwd and return the relative path as our router
       var separator = new RegExp(path.sep.replace('\\', '\\\\'), 'g');
-      router = function routerFn (filepath) {
+      router = function routerFn (cwdpath) {
         // Join path via /
         // DEV: Files zipped on Windows need to use /  to have the same layout on Linux
-        return path.relative(cwd, filepath).replace(separator, '/');
+        return cwdpath.replace(separator, '/');
       };
     } else if (data.cwd) {
     // Otherwise, if a `cwd` was specified, throw a fit and leave
@@ -72,10 +72,11 @@ module.exports = function(grunt) {
     });
 
     // For each of the srcFiles
-    srcFiles.forEach(function (filepath) {
+    srcFiles.forEach(function (cwdpath) {
       // Read in the content and add it to the zip
-      var input = fs.readFileSync(filepath, 'binary'),
-          routedPath = router(filepath);
+      var filepath = path.join(cwd, cwdpath),
+          input = fs.readFileSync(filepath, 'binary'),
+          routedPath = router(cwdpath);
 
       // If it has a path, add it (allows for skipping)
       if (routedPath) {
