@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.13.0 - Added verbose output and updated unzip test for no src files. Fixes #24
+
 0.12.0 - Robustified unzipping empty directories logic. Fixes #21 for OSX
 
 0.11.0 - Fixed bug with unzipping empty directories. Fixes #21
