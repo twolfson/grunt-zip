@@ -67,6 +67,7 @@ module.exports = function(grunt) {
 
       // If there is a folder, add it to the zip (allows for skipping)
       if (routedPath) {
+        grunt.verbose.writeln('Adding folder: "' + folderpath + '" -> "' + routedPath + '"');
         zip.folder(routedPath);
       }
     });
@@ -79,6 +80,7 @@ module.exports = function(grunt) {
 
       // If it has a path, add it (allows for skipping)
       if (routedPath) {
+        grunt.verbose.writeln('Adding file: "' + filepath + '" -> "' + routedPath + '"');
         zip.file(routedPath, input, {binary: true});
       }
     });
