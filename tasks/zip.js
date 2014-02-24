@@ -117,6 +117,7 @@ module.exports = function(grunt) {
     });
 
     // Iterate over the srcFiles
+    var filesWritten = false;
     srcFiles.forEach(function (filepath) {
       // Read in the contents
       var input = fs.readFileSync(filepath, 'binary');
@@ -190,7 +191,11 @@ module.exports = function(grunt) {
     if (this.errorCount) { return false; }
 
     // Otherwise, print a success message.
-    grunt.log.writeln('File "' + this.file.dest + '" created.');
+    if (filesWritten) {
+      grunt.log.writeln('Created "' + this.file.dest + '" directory');
+    } else {
+      grunt.log.writeln('No files were found in source. "' + this.file.dest + '" has not been created.');
+    }
   });
 
 };
