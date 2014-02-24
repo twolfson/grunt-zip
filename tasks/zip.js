@@ -170,11 +170,11 @@ module.exports = function(grunt) {
         if (routedName) {
           // Determine the filepath
           var filepath = path.join(dest, routedName);
+          filesWritten = true;
 
           // If the routedName ends in a `/`, treat it as a/an (empty) directory
           // DEV: We use `/` over path.sep since it is consistently `/` across all platforms
           if (routedName.slice(-1) === '/') {
-            filesWritten = true;
             grunt.verbose.writeln('Creating directory: "' + filepath + '"');
             grunt.file.mkdir(filepath);
           } else {
@@ -182,7 +182,6 @@ module.exports = function(grunt) {
             var fileDir = path.dirname(filepath);
 
             // Write out the content
-            filesWritten = true;
             grunt.verbose.writeln('Writing file: "' + filepath + '"');
             grunt.file.mkdir(fileDir);
             fs.writeFileSync(filepath, content, 'binary');
