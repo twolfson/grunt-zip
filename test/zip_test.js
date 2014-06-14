@@ -4,7 +4,7 @@ var fsUtils = require('./utils/fs');
 var gruntUtils = require('./utils/grunt');
 
 // Begin our tests
-describe('A grunt `zip` task', function () {
+describe.only('A grunt `zip` task', function () {
   describe('zipping a single file', function () {
     gruntUtils.runTask('zip:single');
 
@@ -30,7 +30,7 @@ describe('A grunt `zip` task', function () {
     });
   });
 
-  describe('zipping nested folders', function () {
+  describe.skip('zipping nested folders', function () {
     gruntUtils.runTask('zip:nested');
     gruntUtils.runTask('unzip:test-zip-nested');
 
