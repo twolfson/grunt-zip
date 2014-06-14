@@ -2,9 +2,16 @@ var path = require('path');
 
 module.exports = function (grunt) {
 
+  // TODO:
+  // // Add in 0.4 specific tests
+  // var _ = grunt.util._;
+  // var zipConfig = grunt.config.get('zip');
+  // grunt.config.set('zip', _.extend(zipConfig, {
+  //   'actual/template_zip/<%= pkg.name %>.zip': ['test_files/file.js']
+  // }));
+
   // Project configuration.
   grunt.initConfig({
-    pkg: require('../package.json'),
     clean: ['actual/'],
     zip: {
       single: {
@@ -103,9 +110,6 @@ module.exports = function (grunt) {
         src: 'actual/skip_files_zip/file.zip',
         dest: 'actual/skip_files_zip/unzip'
       },
-    },
-    test: {
-      common: 'zip_test.js'
     }
   });
 
@@ -116,7 +120,4 @@ module.exports = function (grunt) {
   process.chdir('..');
   grunt.loadNpmTasks('grunt-contrib-clean');
   process.chdir(__dirname);
-
-  // Run project task then tests.
-  grunt.registerTask('default', 'clean zip unzip test');
 };
