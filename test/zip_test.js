@@ -22,7 +22,6 @@ describe('A grunt `zip` task', function () {
     fsUtils.loadFiles('multi_zip/file.zip');
 
     it('matches the expected output', function () {
-      // Calculate how many bits are off and under our threshold
       var difference = _.levenshtein(this.expectedFile, this.actualFile);
       expect(difference).to.be.at.most(50);
     });
@@ -30,49 +29,6 @@ describe('A grunt `zip` task', function () {
 });
 
 exports.hai = {
-  'multiZip': function (test) {
-    // Set up
-    test.expect(1);
-    addMethods(test);
-
-    // zip:multi
-
-    // Assert single_zip is close enough and return
-    test.closeFiles('multi_zip/file.zip', 50);
-    test.done();
-  },
-  'singleUnzip': function (test) {
-    // Add in test methods
-    test.expect(2);
-    addMethods(test);
-
-    // unzip:single
-
-    // Compare a and b
-    test.equalFiles('single_unzip/a.js');
-    test.equalFiles('single_unzip/b.js');
-
-    // Return
-    test.done();
-  },
-  'nestedUnzip': function (test) {
-    test.expect(8);
-    addMethods(test);
-
-    // unzip:nested
-
-    // Compare all nested unzip files
-    test.equalFiles('nested_unzip/bootstrap/css/bootstrap-responsive.css');
-    test.equalFiles('nested_unzip/bootstrap/css/bootstrap-responsive.min.css');
-    test.equalFiles('nested_unzip/bootstrap/css/bootstrap.css');
-    test.equalFiles('nested_unzip/bootstrap/css/bootstrap.min.css');
-    test.equalFiles('nested_unzip/bootstrap/img/glyphicons-halflings-white.png');
-    test.equalFiles('nested_unzip/bootstrap/img/glyphicons-halflings.png');
-    test.equalFiles('nested_unzip/bootstrap/js/bootstrap.js');
-    test.equalFiles('nested_unzip/bootstrap/js/bootstrap.min.js');
-
-    test.done();
-  },
   'image': function (test) {
     // Set up
     test.expect(1);
