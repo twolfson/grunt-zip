@@ -8,11 +8,14 @@ var gruntUtils = require('./utils/grunt');
 describe('A grunt `unzip` task', function () {
   describe('unzipping a file', function () {
     gruntUtils.runTask('unzip:single');
-    fsUtils.loadFiles('single_zip/file.zip');
+    fsUtils.loadFiles('first', 'single_unzip/a.js');
+    fsUtils.loadFiles('second', 'single_unzip/b.js');
 
-    it('matches the expected output', function () {
-      // Calculate how many bits are off and under our threshold
-      var difference = _.levenshtein(this.expectedFile, this.actualFile);
+    it('generates a matching first file', function () {
+        // expect(this.first.actual.
+    });
+
+    it('generates a matching second file', function () {
       expect(difference).to.be.at.most(50);
     });
   });
