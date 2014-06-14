@@ -4,7 +4,7 @@ var fsUtils = require('./utils/fs');
 var gruntUtils = require('./utils/grunt');
 
 // Begin our tests
-describe.only('A grunt `zip` task', function () {
+describe('A grunt `zip` task', function () {
   describe('zipping a single file', function () {
     gruntUtils.runTask('zip:single');
 
@@ -21,7 +21,7 @@ describe.only('A grunt `zip` task', function () {
     });
   });
 
-  describe('zipping a binary file (image)', function () {
+  describe.only('zipping a binary file (image)', function () {
     gruntUtils.runTask('zip:image');
     gruntUtils.runTask('unzip:test-zip-image');
 
