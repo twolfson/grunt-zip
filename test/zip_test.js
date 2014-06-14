@@ -1,33 +1,13 @@
-var grunt = require('grunt'),
-    fs = require('fs'),
-    _ = require('underscore.string');
-
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
-
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
+// Load in dependencies
+var _ = require('underscore.string');
+var fsUtils = require('./utils/fs');
 
 function addMethods(test) {
   // Assert two files are equal
   test.equalFiles = function (filename) {
     // Read in content
-    var expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
-        actualContent = fs.readFileSync('actual/' + filename, 'binary');
+    var expectedContent = fs.readFileSync('expected/' + filename, 'binary');
+    var actualContent = fs.readFileSync('actual/' + filename, 'binary');
 
     // Assert that the content is *exactly* the same
     test.strictEqual(actualContent, expectedContent, filename + ' does not have the same content in `expected` as `actual`');
@@ -37,8 +17,8 @@ function addMethods(test) {
   // ANTI-PATTERN: 3 specifically ordered/non-modular parameters =(
   test.closeFiles = function (filename, distance) {
     // Read in the content
-    var expectedContent = fs.readFileSync('expected/' + filename, 'binary'),
-        actualContent = fs.readFileSync('actual/' + filename, 'binary');
+    var expectedContent = fs.readFileSync('expected/' + filename, 'binary');
+    var actualContent = fs.readFileSync('actual/' + filename, 'binary');
 
     // Calculate the difference in bits (accounts for random bits)
     var difference = _.levenshtein(expectedContent, actualContent);
@@ -63,16 +43,19 @@ function addMethods(test) {
   };
 }
 
-exports['zip'] = {
-  'singleZip': function (test) {
-    // Set up
-    test.expect(1);
-    addMethods(test);
+describe('A grunt `zip` task', function () {
+  describe('zipping a single file', function () {
+    fsUtils.loadFiles('single_zip/file.zip');
 
-    // Assert single_zip is close enough and return
-    test.closeFiles('single_zip/file.zip', 50);
-    test.done();
-  },
+    it('matches the expected output', function () {
+      // Calculate how many bits are off and under our threshold
+      var difference = _.levenshtein(this.expectedFile, this.actualFile);
+      expect(difference).to.be.at.most(50);
+    });
+  });
+});
+
+exports.hai = {
   'multiZip': function (test) {
     // Set up
     test.expect(1);
@@ -220,5 +203,27 @@ exports['zip'] = {
     var stats = fs.statSync('actual/empty/double_empty');
     test.strictEqual(stats.isDirectory(), true);
     test.done();
+  }
+};
+
+// TODO: Figure out how to test this only for grunt@0.4
+var fs = require('fs');
+// 0.4 specific test for twolfson/grunt-zip#6
+exports['0.4'] = {
+  'dest-template': function (test) {
+    test.expect(2);
+
+    // Grab the stats on the file
+    var file = __dirname + '/actual/template_zip/grunt-zip.zip';
+    fs.stat(file, function (err, stat) {
+      // Assert there is no error
+      test.equal(err, null, 'There was no error during `stat`');
+
+      // and we are looking at a file
+      test.ok(stat.isFile, 'The templated zip file was not successfully created');
+
+      // Callback
+      test.done();
+    });
   }
 };
