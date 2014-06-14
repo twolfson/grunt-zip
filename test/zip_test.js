@@ -55,24 +55,6 @@ describe('A grunt `zip` task', function () {
 });
 
 exports.wat = {
-  'routerUnzip': function (test) {
-    test.expect(8);
-    addMethods(test);
-
-    // unzip:router
-
-    // Compare all router unzip files
-    fsUtils.assertEqualFiles('router_unzip/bootstrap-responsive.css');
-    fsUtils.assertEqualFiles('router_unzip/bootstrap-responsive.min.css');
-    fsUtils.assertEqualFiles('router_unzip/bootstrap.css');
-    fsUtils.assertEqualFiles('router_unzip/bootstrap.min.css');
-    fsUtils.assertEqualFiles('router_unzip/glyphicons-halflings-white.png');
-    fsUtils.assertEqualFiles('router_unzip/glyphicons-halflings.png');
-    fsUtils.assertEqualFiles('router_unzip/bootstrap.js');
-    fsUtils.assertEqualFiles('router_unzip/bootstrap.min.js');
-
-    test.done();
-  },
   'cwdZip': function (test) {
     // Set up
     test.expect(2);
@@ -116,33 +98,6 @@ exports.wat = {
     fsUtils.assertNoFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
 
     // Return
-    test.done();
-  },
-  'skipFilesUnzip': function (test) {
-    test.expect(8);
-    addMethods(test);
-
-    // unzip:skip-files
-
-    // Assert CSS files do not exist
-    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css');
-    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.min.css');
-    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap.css');
-    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap.min.css');
-
-    // Assert other files do exist
-    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings-white.png');
-    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings.png');
-    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/js/bootstrap.js');
-    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/js/bootstrap.min.js');
-
-    test.done();
-  },
-  'emptyUnzip': function (test) {
-    // unzip:empty
-
-    var stats = fs.statSync('actual/empty/double_empty');
-    test.strictEqual(stats.isDirectory(), true);
     test.done();
   }
 };
