@@ -12,6 +12,8 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    // DEV: `pkg` is used for template test
+    pkg: require('../package.json'),
     zip: {
       single: {
         src: ['test_files/file.js'],

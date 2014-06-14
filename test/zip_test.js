@@ -91,7 +91,7 @@ describe('A grunt `zip` task', function () {
 // If we are in `grunt>=0.3`, load a version specific test
 var gruntInfo = require('grunt/package.json');
 if (!gruntInfo.version.match(/^0.3.\d+$/)) {
-  describe('A `zip` task with destination templating', function () {
+  describe.only('A `zip` task with destination templating', function () {
     // 0.4 specific test for twolfson/grunt-zip#6
     gruntUtils.runTask('zip:actual/template_zip/<%= pkg.name %>.zip');
     fsUtils.exists( __dirname + '/actual/template_zip/grunt-zip.zip');
