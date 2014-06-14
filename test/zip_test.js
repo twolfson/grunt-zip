@@ -88,25 +88,16 @@ describe('A grunt `zip` task', function () {
 });
 
 // TODO: Figure out how to test this only for grunt@0.4
-var fs = require('fs');
-// 0.4 specific test for twolfson/grunt-zip#6
-exports['0.4'] = {
-  'dest-template': function (test) {
-    test.expect(2);
+// If we are in `grunt>=0.3`, load a version specific test
+var gruntInfo = require('grunt/package.json');
+if (!gruntInfo.version.match(/^0.3.\d+$/)) {
+  describe('A `zip` task with destination templating', function () {
+    // 0.4 specific test for twolfson/grunt-zip#6
+    gruntUtils.runTask('zip:actual/template_zip/<%= pkg.name %>.zip');
+    fsUtils.exists( __dirname + '/actual/template_zip/grunt-zip.zip');
 
-    // 'zip:actual/template_zip/<%= pkg.name %>.zip'
-
-    // Grab the stats on the file
-    var file = __dirname + '/actual/template_zip/grunt-zip.zip';
-    fs.stat(file, function (err, stat) {
-      // Assert there is no error
-      test.equal(err, null, 'There was no error during `stat`');
-
-      // and we are looking at a file
-      test.ok(stat.isFile, 'The templated zip file was not successfully created');
-
-      // Callback
-      test.done();
+    it('generates the target file', function () {
+      expect(this.fileExists).to.equal(true);
     });
-  }
-};
+  });
+}

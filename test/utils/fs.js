@@ -3,6 +3,20 @@ var assert = require('assert');
 var fs = require('fs');
 var _ = require('underscore.string');
 
+// Define common helpers
+exports.exists = function (path) {
+  before(function loadFile (done) {
+    var that = this;
+    fs.exists(path, function (exists) {
+      that.fileExists = exists;
+      done();
+    });
+  });
+  after(function cleanupFile () {
+    delete this.fileExists;
+  });
+};
+
 // Define test assertions
 exports.assertEqualFiles = function (filename) {
   // Read in content
