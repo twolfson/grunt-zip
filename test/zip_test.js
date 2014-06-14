@@ -1,6 +1,8 @@
 // Load in dependencies
 var _ = require('underscore.string');
+var expect = require('chai').expect;
 var fsUtils = require('./utils/fs');
+var gruntUtils = require('./utils/grunt');
 
 function addMethods(test) {
   // Assert two files are equal
@@ -45,6 +47,7 @@ function addMethods(test) {
 
 describe('A grunt `zip` task', function () {
   describe('zipping a single file', function () {
+    gruntUtils.runTask('zip:single');
     fsUtils.loadFiles('single_zip/file.zip');
 
     it('matches the expected output', function () {

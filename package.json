@@ -27,7 +27,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "cd test && grunt"
+    "test": "mocha"
   },
   "dependencies": {
     "node-zip": "0.0.2",
@@ -41,7 +41,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-cli": "~0.1.11",
     "mocha": "~1.20.1",
-    "chai": "~1.9.1"
+    "chai": "~1.9.1",
+    "shell-quote": "~1.4.1"
   },
   "keywords": [
     "gruntplugin",
