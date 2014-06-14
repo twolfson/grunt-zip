@@ -87,7 +87,6 @@ describe('A grunt `zip` task', function () {
   });
 });
 
-// TODO: Figure out how to test this only for grunt@0.4
 // If we are in `grunt>=0.3`, load a version specific test
 var gruntInfo = require('grunt/package.json');
 if (!gruntInfo.version.match(/^0.3.\d+$/)) {
