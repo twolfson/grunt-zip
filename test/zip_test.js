@@ -29,42 +29,32 @@ describe('A grunt `zip` task', function () {
       fsUtils.assertEqualFiles('image_zip/unzip/test_files/smile.gif');
     });
   });
+
+  describe('zipping nested folders', function () {
+    gruntUtils.runTask('zip:nested');
+    gruntUtils.runTask('unzip:test-zip-nested');
+
+    it('saves the nested files', function () {
+      fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/hello.js');
+      fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/world.txt');
+      fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/glyphicons-halflings.png');
+      fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello10.txt');
+      fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello20.js');
+    });
+  });
+
+  describe('zipping files with a `router`', function () {
+    gruntUtils.runTask('zip:router');
+    gruntUtils.runTask('unzip:test-zip-router');
+
+    it('routes the files', function () {
+      fsUtils.assertEqualFiles('router_zip/unzip/hello.js');
+      fsUtils.assertEqualFiles('router_zip/unzip/hello10.txt');
+    });
+  });
 });
 
-exports.hai = {
-  'nestedZip': function (test) {
-    // Set up
-    test.expect(5);
-    addMethods(test);
-
-    // zip:nested
-    // unzip:test-zip-nested
-
-    // Assert all files are the same as they went in
-    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/hello.js');
-    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/world.txt');
-    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/glyphicons-halflings.png');
-    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello10.txt');
-    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello20.js');
-
-    // Return
-    test.done();
-  },
-  'routerZip': function (test) {
-    // Set up
-    test.expect(2);
-    addMethods(test);
-
-    // zip:router
-    // unzip:test-zip-router
-
-    // Assert all files are the same as they went in
-    fsUtils.assertEqualFiles('router_zip/unzip/hello.js');
-    fsUtils.assertEqualFiles('router_zip/unzip/hello10.txt');
-
-    // Return
-    test.done();
-  },
+exports.wat = {
   'routerUnzip': function (test) {
     test.expect(8);
     addMethods(test);
