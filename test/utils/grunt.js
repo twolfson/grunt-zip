@@ -16,8 +16,6 @@ exports.runTask = function (task) {
       that.stdout = stdout;
       that.stderr = stderr;
 
-      console.log(stdout, stderr);
-
       // Callback
       done();
     });
