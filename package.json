@@ -30,8 +30,8 @@
     "test": "rm -r test/actual &> /dev/null && mocha"
   },
   "dependencies": {
-    "node-zip": "0.0.2",
-    "grunt-retro": "~0.6.0"
+    "grunt-retro": "~0.6.0",
+    "jszip": "~2.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
