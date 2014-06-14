@@ -35,8 +35,8 @@ exports.hai = {
     test.expect(1);
     addMethods(test);
 
-
     // zip:multi
+
     // Assert single_zip is close enough and return
     test.closeFiles('multi_zip/file.zip', 50);
     test.done();
@@ -47,6 +47,7 @@ exports.hai = {
     addMethods(test);
 
     // unzip:single
+
     // Compare a and b
     test.equalFiles('single_unzip/a.js');
     test.equalFiles('single_unzip/b.js');
@@ -78,7 +79,7 @@ exports.hai = {
     addMethods(test);
 
     // zip:image
-    // unzip:image
+    // unzip:test-zip-image
 
     // Assert the image is the same as when it went in
     test.equalFiles('image_zip/unzip/test_files/smile.gif');
@@ -90,7 +91,7 @@ exports.hai = {
     addMethods(test);
 
     // zip:nested
-    // unzip:nested
+    // unzip:test-zip-nested
 
     // Assert all files are the same as they went in
     test.equalFiles('nested_zip/unzip/test_files/nested/hello.js');
@@ -108,7 +109,7 @@ exports.hai = {
     addMethods(test);
 
     // zip:router
-    // unzip:router
+    // unzip:test-zip-router
 
     // Assert all files are the same as they went in
     test.equalFiles('router_zip/unzip/hello.js');
@@ -140,6 +141,9 @@ exports.hai = {
     test.expect(2);
     addMethods(test);
 
+    // zip:cwd
+    // unzip:test-zip-cwd
+
     // Assert all files are the same as they went in
     test.equalFiles('cwd_zip/unzip/hello.js');
     test.equalFiles('cwd_zip/unzip/nested2/hello10.txt');
@@ -151,6 +155,9 @@ exports.hai = {
     // Set up
     test.expect(2);
     addMethods(test);
+
+    // zip:dot
+    // unzip:test-zip-dot
 
     // Assert all files are the same as they went in
     test.equalFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
@@ -164,6 +171,9 @@ exports.hai = {
     test.expect(2);
     addMethods(test);
 
+    // zip:skip-files
+    // unzip:test-zip-skip-files
+
     // Assert all files are the same as they went in
     test.equalFiles('skip_files_zip/unzip/test_files/nested/hello.js');
     test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
@@ -174,6 +184,8 @@ exports.hai = {
   'skipFilesUnzip': function (test) {
     test.expect(8);
     addMethods(test);
+
+    // unzip:skip-files
 
     // Assert CSS files do not exist
     test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css');
@@ -190,6 +202,8 @@ exports.hai = {
     test.done();
   },
   'emptyUnzip': function (test) {
+    // unzip:empty
+
     var stats = fs.statSync('actual/empty/double_empty');
     test.strictEqual(stats.isDirectory(), true);
     test.done();
@@ -202,6 +216,8 @@ var fs = require('fs');
 exports['0.4'] = {
   'dest-template': function (test) {
     test.expect(2);
+
+    // 'zip:actual/template_zip/<%= pkg.name %>.zip'
 
     // Grab the stats on the file
     var file = __dirname + '/actual/template_zip/grunt-zip.zip';
