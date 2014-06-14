@@ -52,55 +52,40 @@ describe('A grunt `zip` task', function () {
       fsUtils.assertEqualFiles('router_zip/unzip/hello10.txt');
     });
   });
+
+  describe('zipping files with a `cwd` parameter', function () {
+    gruntUtils.runTask('zip:cwd');
+    gruntUtils.runTask('unzip:test-zip-cwd');
+
+    it('adjusts the filepaths', function () {
+      fsUtils.assertEqualFiles('cwd_zip/unzip/hello.js');
+      fsUtils.assertEqualFiles('cwd_zip/unzip/nested2/hello10.txt');
+    });
+  });
+
+  describe('zipping dot files', function () {
+    gruntUtils.runTask('zip:dot');
+    gruntUtils.runTask('unzip:test-zip-dot');
+
+    it('saves the dot files', function () {
+      fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
+      fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/test/.examplerc');
+    });
+  });
+
+  describe('zipping files with a router that skips files', function () {
+    gruntUtils.runTask('zip:skip-files');
+    gruntUtils.runTask('unzip:test-zip-skip-files');
+
+    it('saves normal files', function () {
+      fsUtils.assertEqualFiles('skip_files_zip/unzip/test_files/nested/hello.js');
+    });
+
+    it('does not save skipped files', function () {
+      fsUtils.assertNoFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
+    });
+  });
 });
-
-exports.wat = {
-  'cwdZip': function (test) {
-    // Set up
-    test.expect(2);
-    addMethods(test);
-
-    // zip:cwd
-    // unzip:test-zip-cwd
-
-    // Assert all files are the same as they went in
-    fsUtils.assertEqualFiles('cwd_zip/unzip/hello.js');
-    fsUtils.assertEqualFiles('cwd_zip/unzip/nested2/hello10.txt');
-
-    // Return
-    test.done();
-  },
-  'dotZip': function (test) {
-    // Set up
-    test.expect(2);
-    addMethods(test);
-
-    // zip:dot
-    // unzip:test-zip-dot
-
-    // Assert all files are the same as they went in
-    fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
-    fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/test/.examplerc');
-
-    // Return
-    test.done();
-  },
-  'skipFilesZip': function (test) {
-    // Set up
-    test.expect(2);
-    addMethods(test);
-
-    // zip:skip-files
-    // unzip:test-zip-skip-files
-
-    // Assert all files are the same as they went in
-    fsUtils.assertEqualFiles('skip_files_zip/unzip/test_files/nested/hello.js');
-    fsUtils.assertNoFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
-
-    // Return
-    test.done();
-  }
-};
 
 // TODO: Figure out how to test this only for grunt@0.4
 var fs = require('fs');
