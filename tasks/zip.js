@@ -167,8 +167,10 @@ module.exports = function(grunt) {
       filenames.forEach(function (filename) {
         // Find the content
         var fileObj = files[filename],
-            content = fileObj._data,
+            content = fileObj.asBinary(),
             routedName = router(filename);
+
+        console.log(fileObj);
 
         // If there is a file path (allows for skipping)
         if (routedName) {
