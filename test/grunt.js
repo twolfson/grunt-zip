@@ -12,7 +12,6 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    clean: ['actual/'],
     zip: {
       single: {
         src: ['test_files/file.js'],

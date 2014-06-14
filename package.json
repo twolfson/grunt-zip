@@ -27,7 +27,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "rm -r test/actual &> /dev/null && mocha"
   },
   "dependencies": {
     "node-zip": "0.0.2",

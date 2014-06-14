@@ -1,53 +1,24 @@
 // Load in dependencies
 var _ = require('underscore.string');
-var expect = require('chai').expect;
+var expect = require('chai').expectlite;
 var fsUtils = require('./utils/fs');
 var gruntUtils = require('./utils/grunt');
 
-function addMethods(test) {
-  // Assert two files are equal
-  test.equalFiles = function (filename) {
-    // Read in content
-    var expectedContent = fs.readFileSync('expected/' + filename, 'binary');
-    var actualContent = fs.readFileSync('actual/' + filename, 'binary');
-
-    // Assert that the content is *exactly* the same
-    test.strictEqual(actualContent, expectedContent, filename + ' does not have the same content in `expected` as `actual`');
-  };
-
-  // Assert two files are close enough
-  // ANTI-PATTERN: 3 specifically ordered/non-modular parameters =(
-  test.closeFiles = function (filename, distance) {
-    // Read in the content
-    var expectedContent = fs.readFileSync('expected/' + filename, 'binary');
-    var actualContent = fs.readFileSync('actual/' + filename, 'binary');
-
-    // Calculate the difference in bits (accounts for random bits)
-    var difference = _.levenshtein(expectedContent, actualContent);
-
-    // Assert that we are under our threshold
-    var underThreshold = difference <= distance;
-    test.ok(underThreshold, 'Bitwise difference of zip files "' + difference + '" should be under ' + distance + ' (' + filename + ')');
-  };
-
-  // Assert file does not exist
-  test.noFile = function (filename) {
-    try {
-      // Attempt to grab stats on the would-be location
-      fs.statSync('actual/' + filename);
-
-      // Fail since there are statistics (should be file not found)
-      test.fail('File "' + filename + '" was found when it was expected to not exist');
-    } catch (e) {
-      // Verify the error is ENOENT
-      test.strictEqual(e.code, 'ENOENT', filename + ' exists');
-    }
-  };
-}
-
+// Begin our tests
 describe('A grunt `zip` task', function () {
   describe('zipping a single file', function () {
     gruntUtils.runTask('zip:single');
+    fsUtils.loadFiles('single_zip/file.zip');
+
+    it('matches the expected output', function () {
+      // Calculate how many bits are off and under our threshold
+      var difference = _.levenshtein(this.expectedFile, this.actualFile);
+      expect(difference).to.be.at.most(50);
+    });
+  });
+
+  describe('zipping multiple file', function () {
+    gruntUtils.runTask('zip:multi');
     fsUtils.loadFiles('single_zip/file.zip');
 
     it('matches the expected output', function () {
@@ -64,6 +35,8 @@ exports.hai = {
     test.expect(1);
     addMethods(test);
 
+
+    // zip:multi
     // Assert single_zip is close enough and return
     test.closeFiles('multi_zip/file.zip', 50);
     test.done();
@@ -73,6 +46,7 @@ exports.hai = {
     test.expect(2);
     addMethods(test);
 
+    // unzip:single
     // Compare a and b
     test.equalFiles('single_unzip/a.js');
     test.equalFiles('single_unzip/b.js');
@@ -83,6 +57,8 @@ exports.hai = {
   'nestedUnzip': function (test) {
     test.expect(8);
     addMethods(test);
+
+    // unzip:nested
 
     // Compare all nested unzip files
     test.equalFiles('nested_unzip/bootstrap/css/bootstrap-responsive.css');
@@ -101,6 +77,9 @@ exports.hai = {
     test.expect(1);
     addMethods(test);
 
+    // zip:image
+    // unzip:image
+
     // Assert the image is the same as when it went in
     test.equalFiles('image_zip/unzip/test_files/smile.gif');
     test.done();
@@ -109,6 +88,9 @@ exports.hai = {
     // Set up
     test.expect(5);
     addMethods(test);
+
+    // zip:nested
+    // unzip:nested
 
     // Assert all files are the same as they went in
     test.equalFiles('nested_zip/unzip/test_files/nested/hello.js');
@@ -125,6 +107,9 @@ exports.hai = {
     test.expect(2);
     addMethods(test);
 
+    // zip:router
+    // unzip:router
+
     // Assert all files are the same as they went in
     test.equalFiles('router_zip/unzip/hello.js');
     test.equalFiles('router_zip/unzip/hello10.txt');
@@ -135,6 +120,8 @@ exports.hai = {
   'routerUnzip': function (test) {
     test.expect(8);
     addMethods(test);
+
+    // unzip:router
 
     // Compare all router unzip files
     test.equalFiles('router_unzip/bootstrap-responsive.css');
