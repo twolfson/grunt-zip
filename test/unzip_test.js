@@ -1,5 +1,4 @@
 // Load in dependencies
-var _ = require('underscore.string');
 var expect = require('chai').expect;
 var fsUtils = require('./utils/fs');
 var gruntUtils = require('./utils/grunt');
@@ -8,15 +7,13 @@ var gruntUtils = require('./utils/grunt');
 describe('A grunt `unzip` task', function () {
   describe('unzipping a file', function () {
     gruntUtils.runTask('unzip:single');
-    fsUtils.loadFiles('first', 'single_unzip/a.js');
-    fsUtils.loadFiles('second', 'single_unzip/b.js');
 
     it('generates a matching first file', function () {
-        // expect(this.first.actual.
+      fsUtils.assertEqualFiles('single_unzip/a.js');
     });
 
     it('generates a matching second file', function () {
-      expect(difference).to.be.at.most(50);
+      fsUtils.assertEqualFiles('single_unzip/b.js');
     });
   });
 });

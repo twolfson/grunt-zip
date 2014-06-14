@@ -1,6 +1,7 @@
 // Load in dependencis
 var assert = require('assert');
 var fs = require('fs');
+var _ = require('underscore.string');
 
 // Define test assertions
 exports.assertEqualFiles = function (filename) {

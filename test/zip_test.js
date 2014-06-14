@@ -1,5 +1,4 @@
 // Load in dependencies
-var _ = require('underscore.string');
 var expect = require('chai').expect;
 var fsUtils = require('./utils/fs');
 var gruntUtils = require('./utils/grunt');
@@ -8,22 +7,17 @@ var gruntUtils = require('./utils/grunt');
 describe('A grunt `zip` task', function () {
   describe('zipping a single file', function () {
     gruntUtils.runTask('zip:single');
-    fsUtils.loadFiles('single_zip/file.zip');
 
     it('matches the expected output', function () {
-      // Calculate how many bits are off and under our threshold
-      var difference = _.levenshtein(this.expectedFile, this.actualFile);
-      expect(difference).to.be.at.most(50);
+      fsUtils.assertCloseFiles('single_zip/file.zip', 50);
     });
   });
 
   describe('zipping multiple file', function () {
     gruntUtils.runTask('zip:multi');
-    fsUtils.loadFiles('multi_zip/file.zip');
 
     it('matches the expected output', function () {
-      var difference = _.levenshtein(this.expectedFile, this.actualFile);
-      expect(difference).to.be.at.most(50);
+      fsUtils.assertCloseFiles('multi_zip/file.zip', 50);
     });
   });
 });
