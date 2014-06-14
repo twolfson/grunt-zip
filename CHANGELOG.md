@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.15.0 - Upgraded to `jszip@2.2.2`, fixes `DEFLATE` issue in #25
+
 0.14.0 - Moved test suite to `mocha` to make standalone tests easier
 
 0.13.0 - Added verbose output and updated unzip test for no src files. Fixes #24
