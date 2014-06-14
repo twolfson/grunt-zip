@@ -75,13 +75,13 @@ module.exports = function(grunt) {
     // For each of the srcFiles
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
-      var input = fs.readFileSync(filepath, 'binary'),
+      var input = fs.readFileSync(filepath),
           routedPath = router(filepath);
 
       // If it has a path, add it (allows for skipping)
       if (routedPath) {
         grunt.verbose.writeln('Adding file: "' + filepath + '" -> "' + routedPath + '"');
-        zip.file(routedPath, input, {binary: true});
+        zip.file(routedPath, input);
       }
     });
 
@@ -90,8 +90,8 @@ module.exports = function(grunt) {
     grunt.file.mkdir(destDir);
 
     // Write out the content
-    var output = zip.generate({base64: data.base64, compression: data.compression});
-    fs.writeFileSync(dest, output, 'binary');
+    var output = zip.generate({type: 'nodebuffer', compression: data.compression});
+    fs.writeFileSync(dest, output);
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }
@@ -122,10 +122,10 @@ module.exports = function(grunt) {
     var filesWritten = false;
     srcFiles.forEach(function (filepath) {
       // Read in the contents
-      var input = fs.readFileSync(filepath, 'binary');
+      var input = fs.readFileSync(filepath);
 
       // Unzip it
-      var zip = new Zip(input, {base64: data.base64, checkCRC32: data.checkCRC32});
+      var zip = new Zip(input, {checkCRC32: data.checkCRC32});
 
       // Pluck out the files
       var files = zip.files,
