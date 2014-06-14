@@ -167,7 +167,7 @@ module.exports = function(grunt) {
       filenames.forEach(function (filename) {
         // Find the content
         var fileObj = files[filename],
-            content = fileObj.asBinary(),
+            content = fileObj.asNodeBuffer(),
             routedName = router(filename);
 
         console.log(fileObj);
@@ -192,7 +192,7 @@ module.exports = function(grunt) {
             // Write out the content
             grunt.verbose.writeln('Writing file: "' + filepath + '"');
             grunt.file.mkdir(fileDir);
-            fs.writeFileSync(filepath, content, 'binary');
+            fs.writeFileSync(filepath, content);
           }
         }
       });
