@@ -131,7 +131,7 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
-      console.log('files');
+      console.log('files', filenames);
 
       // Filter out all non-leaf files
       filenames = filenames.filter(function filterNonLeafs (filename) {
@@ -167,7 +167,7 @@ module.exports = function(grunt) {
       filenames.forEach(function (filename) {
         // Find the content
         var fileObj = files[filename],
-            content = fileObj.data,
+            content = fileObj._data,
             routedName = router(filename);
 
         // If there is a file path (allows for skipping)
@@ -184,6 +184,8 @@ module.exports = function(grunt) {
           } else {
             // Create the destination directory
             var fileDir = path.dirname(filepath);
+
+            console.log('content', filepath, content);
 
             // Write out the content
             grunt.verbose.writeln('Writing file: "' + filepath + '"');
