@@ -8,7 +8,7 @@
 
 var fs = require('fs'),
     path = require('path'),
-    Zip = require('node-zip'),
+    Zip = require('jszip'),
     gruntRetro = require('grunt-retro');
 module.exports = function(grunt) {
   // Load and bind grunt-retro
