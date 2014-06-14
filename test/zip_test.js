@@ -21,7 +21,7 @@ describe('A grunt `zip` task', function () {
     });
   });
 
-  describe.only('zipping a binary file (image)', function () {
+  describe('zipping a binary file (image)', function () {
     gruntUtils.runTask('zip:image');
     gruntUtils.runTask('unzip:test-zip-image');
 
@@ -30,7 +30,7 @@ describe('A grunt `zip` task', function () {
     });
   });
 
-  describe.skip('zipping nested folders', function () {
+  describe('zipping nested folders', function () {
     gruntUtils.runTask('zip:nested');
     gruntUtils.runTask('unzip:test-zip-nested');
 
