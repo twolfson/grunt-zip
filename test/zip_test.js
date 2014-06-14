@@ -20,21 +20,18 @@ describe('A grunt `zip` task', function () {
       fsUtils.assertCloseFiles('multi_zip/file.zip', 50);
     });
   });
+
+  describe('zipping a binary file (image)', function () {
+    gruntUtils.runTask('zip:image');
+    gruntUtils.runTask('unzip:test-zip-image');
+
+    it('does not corrupt the file', function () {
+      fsUtils.assertEqualFiles('image_zip/unzip/test_files/smile.gif');
+    });
+  });
 });
 
 exports.hai = {
-  'image': function (test) {
-    // Set up
-    test.expect(1);
-    addMethods(test);
-
-    // zip:image
-    // unzip:test-zip-image
-
-    // Assert the image is the same as when it went in
-    test.equalFiles('image_zip/unzip/test_files/smile.gif');
-    test.done();
-  },
   'nestedZip': function (test) {
     // Set up
     test.expect(5);
@@ -44,11 +41,11 @@ exports.hai = {
     // unzip:test-zip-nested
 
     // Assert all files are the same as they went in
-    test.equalFiles('nested_zip/unzip/test_files/nested/hello.js');
-    test.equalFiles('nested_zip/unzip/test_files/nested/world.txt');
-    test.equalFiles('nested_zip/unzip/test_files/nested/glyphicons-halflings.png');
-    test.equalFiles('nested_zip/unzip/test_files/nested/nested2/hello10.txt');
-    test.equalFiles('nested_zip/unzip/test_files/nested/nested2/hello20.js');
+    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/hello.js');
+    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/world.txt');
+    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/glyphicons-halflings.png');
+    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello10.txt');
+    fsUtils.assertEqualFiles('nested_zip/unzip/test_files/nested/nested2/hello20.js');
 
     // Return
     test.done();
@@ -62,8 +59,8 @@ exports.hai = {
     // unzip:test-zip-router
 
     // Assert all files are the same as they went in
-    test.equalFiles('router_zip/unzip/hello.js');
-    test.equalFiles('router_zip/unzip/hello10.txt');
+    fsUtils.assertEqualFiles('router_zip/unzip/hello.js');
+    fsUtils.assertEqualFiles('router_zip/unzip/hello10.txt');
 
     // Return
     test.done();
@@ -75,14 +72,14 @@ exports.hai = {
     // unzip:router
 
     // Compare all router unzip files
-    test.equalFiles('router_unzip/bootstrap-responsive.css');
-    test.equalFiles('router_unzip/bootstrap-responsive.min.css');
-    test.equalFiles('router_unzip/bootstrap.css');
-    test.equalFiles('router_unzip/bootstrap.min.css');
-    test.equalFiles('router_unzip/glyphicons-halflings-white.png');
-    test.equalFiles('router_unzip/glyphicons-halflings.png');
-    test.equalFiles('router_unzip/bootstrap.js');
-    test.equalFiles('router_unzip/bootstrap.min.js');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap-responsive.css');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap-responsive.min.css');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap.css');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap.min.css');
+    fsUtils.assertEqualFiles('router_unzip/glyphicons-halflings-white.png');
+    fsUtils.assertEqualFiles('router_unzip/glyphicons-halflings.png');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap.js');
+    fsUtils.assertEqualFiles('router_unzip/bootstrap.min.js');
 
     test.done();
   },
@@ -95,8 +92,8 @@ exports.hai = {
     // unzip:test-zip-cwd
 
     // Assert all files are the same as they went in
-    test.equalFiles('cwd_zip/unzip/hello.js');
-    test.equalFiles('cwd_zip/unzip/nested2/hello10.txt');
+    fsUtils.assertEqualFiles('cwd_zip/unzip/hello.js');
+    fsUtils.assertEqualFiles('cwd_zip/unzip/nested2/hello10.txt');
 
     // Return
     test.done();
@@ -110,8 +107,8 @@ exports.hai = {
     // unzip:test-zip-dot
 
     // Assert all files are the same as they went in
-    test.equalFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
-    test.equalFiles('dot_zip/unzip/test_files/dot/test/.examplerc');
+    fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/.test/hello.js');
+    fsUtils.assertEqualFiles('dot_zip/unzip/test_files/dot/test/.examplerc');
 
     // Return
     test.done();
@@ -125,8 +122,8 @@ exports.hai = {
     // unzip:test-zip-skip-files
 
     // Assert all files are the same as they went in
-    test.equalFiles('skip_files_zip/unzip/test_files/nested/hello.js');
-    test.noFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
+    fsUtils.assertEqualFiles('skip_files_zip/unzip/test_files/nested/hello.js');
+    fsUtils.assertNoFile('skip_files_zip/unzip/test_files/nested/nested2/hello10.txt');
 
     // Return
     test.done();
@@ -138,16 +135,16 @@ exports.hai = {
     // unzip:skip-files
 
     // Assert CSS files do not exist
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.min.css');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.css');
-    test.noFile('skip_files_unzip/bootstrap/css/bootstrap.min.css');
+    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.css');
+    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap-responsive.min.css');
+    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap.css');
+    fsUtils.assertNoFile('skip_files_unzip/bootstrap/css/bootstrap.min.css');
 
     // Assert other files do exist
-    test.equalFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings-white.png');
-    test.equalFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings.png');
-    test.equalFiles('skip_files_unzip/bootstrap/js/bootstrap.js');
-    test.equalFiles('skip_files_unzip/bootstrap/js/bootstrap.min.js');
+    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings-white.png');
+    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/img/glyphicons-halflings.png');
+    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/js/bootstrap.js');
+    fsUtils.assertEqualFiles('skip_files_unzip/bootstrap/js/bootstrap.min.js');
 
     test.done();
   },
