@@ -131,6 +131,8 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
+      console.log('files');
+
       // Filter out all non-leaf files
       filenames = filenames.filter(function filterNonLeafs (filename) {
         // Iterate over the other filenames
