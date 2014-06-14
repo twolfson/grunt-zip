@@ -6,7 +6,7 @@ var gruntUtils = require('./utils/grunt');
 
 // Begin our tests
 describe('A grunt `unzip` task', function () {
-  describe.only('unzipping a single file', function () {
+  describe('unzipping a single file', function () {
     gruntUtils.runTask('unzip:single');
 
     it('generates a matching first file', function () {
