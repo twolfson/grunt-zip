@@ -110,7 +110,6 @@ module.exports = function(grunt) {
         src = file.src,
         srcFiles = grunt.file.expand(src),
         dest = file.dest,
-		flat = file.flat || false,
         router = data.router || echo;
 
     // Fallback options (e.g. checkCRC32)
@@ -132,39 +131,6 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
-	  //If zip file structure is NOT flat, filter out all non-leaf files
-	  if(!flat){		  	 	  		 
-		  filenames = filenames.filter(function filterNonLeafs (filename) {		
-			// Iterate over the other filenames
-			/*
-			 *	NOTE: This process runs in EXPONENTIAL time
-			*/
-			var isLeaf = true,
-				i = filenames.length,
-				otherFile,
-				pathToFile,
-				isParentDir;			 
-			while (i--) {
-			  // If the other file is the current file, skip it
-			  otherFile = filenames[i];		
-			  if (otherFile === filename) {			
-				continue;
-			  }
-
-			  // Determine if this file contains the other
-			  pathToFile = path.relative(filename, otherFile);
-			  isParentDir = pathToFile.indexOf('..') === -1;
-
-			  // If it does, falsify isLeaf
-			  if (isParentDir) {
-				isLeaf = false;
-				break;
-			  }
-			}
-			// Return that the file was a leaf
-			return isLeaf;
-		  });	  
-	  }
       // Iterate over the files   
       filenames.forEach(function (filename) {		
         // Find the content
