@@ -131,8 +131,8 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
-      // Iterate over the files   
-      filenames.forEach(function (filename) {		
+      // Iterate over the files
+      filenames.forEach(function (filename) {
         // Find the content
         var fileObj = files[filename],
             content = fileObj.asNodeBuffer(),
