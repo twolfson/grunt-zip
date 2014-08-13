@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.16.0 - Removed legacy filtering of leaf nodes. By @michaelsantiago
+
 0.15.0 - Upgraded to `jszip@2.2.2`, fixes `DEFLATE` issue in #25
 
 0.14.0 - Moved test suite to `mocha` to make standalone tests easier
