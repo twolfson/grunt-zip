@@ -3,7 +3,7 @@
 Zip and unzip files via a grunt plugin
 
 ## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-zip`
+Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-zip --save-dev`
 
 Then add this line to your project's `grunt.js` gruntfile:
 
