@@ -80,7 +80,7 @@ The short format relies on [`grunt's` support of `{dest: src}`][grunt-short-form
 
 ```js
 zip: {
-  'location/to/zip/to.zip': ['file/to/zip.js', 'another/file.css']
+  'location/to/zip/files.zip': ['file/to/zip.js', 'another/file.css']
 }
 ```
 
@@ -94,24 +94,32 @@ If you want to run this task standalone, it must be executed via:
 
 ```bash
 grunt zip:dest
-# grunt zip:location/to/zip/to.zip
+# grunt zip:location/to/zip/files.zip
 ```
-    // As well as standard grunt sytax
-    widgets: {
-      // Files to zip together
-      src: ['corkscrew.js', 'sillyStraw.js'],
 
-      // Destination of zip file
-      dest: 'widgets.zip'
-    },
+#### Long format
+```js
+zip: {
+  'long-format': {
+    src: ['file/to/zip.js', 'another/file.css'],
+    dest: 'location/to/zip/files.zip'
+  }
+}
+```
 
-    // Specify working directory to zip from via `cwd`
-    'more-widgets': {
-      cwd: 'nested/'
-      // Files will zip to 'corkscrew.js' and 'sillyStraw.js'
-      src: ['nested/corkscrew.js', 'nested/sillyStraw.js'],
-      dest: 'moreWidgets.zip'
-    },
+#### Using `cwd`
+The `cwd` option sets the base path for the zipped files
+
+```js
+zip: {
+  'using-cwd': {
+    cwd: 'nested/'
+    // Files will zip to 'hello.js' and 'world.js'
+    src: ['nested/hello.js', 'nested/world.js'],
+    dest: 'location/to/zip/files.zip'
+  }
+}
+```
 
     // Adjust file paths via `router` for complex cases
     site: {
