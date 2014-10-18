@@ -156,17 +156,104 @@ zip: {
     dest: 'files.zip',
     compression: 'DEFLATE'
   },
-  'using-base64': {
+  'encode-base64': {
     src: ['file.js'],
     dest: 'files.zip',
     base64: true
-  }
+  },
   'including-dotfiles': {
     src: ['file.js'],
     dest: 'files.zip',
     dot: true
   }
 }
+```
+
+### unzip
+#### Short format
+As with `zip`, we support the `{dest: src}` format. Additionally, it has the same drawbacks of being difficult to run standalone.
+
+```js
+unzip: {
+  'location/to/extract/files': 'file/to/extract.zip'
+}
+```
+
+#### Long format
+```js
+unzip: {
+  'long-format': {
+    // Note: If you provide multiple src files, they will all be extracted to the same folder.
+    // This is not well-tested behavior so use at your own risk.
+    src: 'file/to/extract.zip',
+    dest: 'location/to/extract/files'
+  }
+}
+```
+
+#### Using `router`
+During extraction, we can dynamically change the filepaths of the `zip's` contents via the `router` option.
+
+```js
+unzip: {
+  'using-router': {
+    // `router` receives the path that was used during zipping (e.g. css/bootstrap.css)
+    // The path it returns is where the file contents will be written to (e.g. dist/bootstrap.css)
+    router: function (filepath) {
+      // Route each file to dist/{{filename}}
+      var filename = path.basename(filepath);
+      return 'dist/' + filename;
+    }
+
+    // Collects all nested files in same directory
+    // css/bootstrap.css -> bootstrap.css, js/bootstrap.js -> bootstrap.js
+    src: 'bootstrap.zip',
+    dest: 'bootstrap/'
+  }
+}
+```
+
+#### Remaining options
+With the following options we can disable the CRC32 check or decode from base64 encoding:
+
+```js
+zip: {
+  'skip-crc32-check': {
+    src: 'bootstrap.zip',
+    dest: 'bootstrap/',
+    checkCRC32: false
+  },
+  'decode-base64': {
+    src: ['file.js'],
+    dest: 'files.zip',
+    base64: true
+  }
+}
+```
+
+    // Skip/exclude files via `router`
+    unzipCssOnly: {
+      // If router returns a falsy varaible, the file will be skipped
+      router: function (filepath) {
+        // Grab the extension
+        var extname = path.extname(filepath);
+
+        // If the file is a .css, extract it
+        if (extname === '.css') {
+          return filepath;
+        } else {
+        // Otherwise, skip it
+          return null;
+        }
+      }
+
+      src: ['bootstrap.css'],
+      dest: 'bootstrap-css/'
+    }
+
+
+  }
+});
 ```
 
 ## Examples
@@ -194,76 +281,6 @@ zip: {
     dest: 'js-only.zip'
   }
 }
-```
-
-### unzip
-```js
-grunt.initConfig({
-  'unzip': {
-    // Short syntax
-    // 'folderToExtractFilesTo': 'zipFileToExtract'
-    gallery: 'photos.zip',
-
-    // Long syntax
-    catalog: {
-      src: 'electronics.zip',
-      dest: 'catalog'
-    }
-
-    // Note: If you provide multiple src files, they will all be extracted to the same folder.
-    // This is not well-tested behavior so use at your own risk.
-
-    // Adjust file paths of zipped files via `router`
-    site: {
-      // `router` receives the path that was used during zipping (e.g. css/bootstrap.css)
-      // The path it returns is where the file contents will be written to (e.g. dist/bootstrap.css)
-      router: function (filepath) {
-        // Route each file to dist/{{filename}}
-        var filename = path.basename(filepath);
-        return 'dist/' + filename;
-      }
-
-      // Collects all nested files in same directory
-      // css/bootstrap.css -> bootstrap.css, js/bootstrap.js -> bootstrap.js
-      src: 'bootstrap.zip',
-      dest: 'bootstrap/'
-    },
-
-    // If you want to disable the CRC32 check or decode data from base64, you must opt-in to it
-    'unzip-more': {
-      src: 'bootstrap.zip',
-      dest: 'public',
-
-      // Setting for disabling the CRC32 check
-      checkCRC32: false,
-
-      // Setting for decoding from base64
-      base64: true
-    },
-
-    // Skip/exclude files via `router`
-    unzipCssOnly: {
-      // If router returns a falsy varaible, the file will be skipped
-      router: function (filepath) {
-        // Grab the extension
-        var extname = path.extname(filepath);
-
-        // If the file is a .css, extract it
-        if (extname === '.css') {
-          return filepath;
-        } else {
-        // Otherwise, skip it
-          return null;
-        }
-      }
-
-      src: ['bootstrap.css'],
-      dest: 'bootstrap-css/'
-    }
-
-
-  }
-});
 ```
 
 ## Contributing
