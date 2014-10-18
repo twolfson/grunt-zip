@@ -137,7 +137,7 @@ zip: {
       // Route each file to all/{{filename}}
       var filename = path.basename(filepath);
       return 'all/' + filename;
-    }
+    },
 
     // Files will zip to 'main.js' and 'main.css'
     src: ['js/main.js', 'css/main.css'],
@@ -195,6 +195,10 @@ unzip: {
 During extraction, we can dynamically change the filepaths of the `zip's` contents via the `router` option.
 
 ```js
+// This example requires using node's `path` module
+var path = require('path');
+
+// Inside grunt config
 unzip: {
   'using-router': {
     // `router` receives the path that was used during zipping (e.g. css/bootstrap.css)
@@ -203,7 +207,7 @@ unzip: {
       // Route each file to dist/{{filename}}
       var filename = path.basename(filepath);
       return 'dist/' + filename;
-    }
+    },
 
     // Collects all nested files in same directory
     // css/bootstrap.css -> bootstrap.css, js/bootstrap.js -> bootstrap.js
@@ -250,7 +254,7 @@ zip: {
       // Otherwise, skip it
         return null;
       }
-    }
+    },
 
     src: ['js/main.js', 'css/main.css'],
     dest: 'js-only.zip'
@@ -276,7 +280,7 @@ unzip: {
       // Otherwise, skip it
         return null;
       }
-    }
+    },
 
     src: ['bootstrap.css'],
     dest: 'bootstrap-css/'
