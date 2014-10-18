@@ -231,31 +231,6 @@ zip: {
 }
 ```
 
-    // Skip/exclude files via `router`
-    unzipCssOnly: {
-      // If router returns a falsy varaible, the file will be skipped
-      router: function (filepath) {
-        // Grab the extension
-        var extname = path.extname(filepath);
-
-        // If the file is a .css, extract it
-        if (extname === '.css') {
-          return filepath;
-        } else {
-        // Otherwise, skip it
-          return null;
-        }
-      }
-
-      src: ['bootstrap.css'],
-      dest: 'bootstrap-css/'
-    }
-
-
-  }
-});
-```
-
 ## Examples
 ### Skipping files during `zip`
 `zip's router` allows for returning `null` to skip over a file.
@@ -279,6 +254,32 @@ zip: {
 
     src: ['js/main.js', 'css/main.css'],
     dest: 'js-only.zip'
+  }
+}
+```
+
+### Skipping files during `unzip`
+As with `zip`, `unzip` supports skipping extracting of files by returning `null` in `router`.
+
+```js
+unzip: {
+  'skip-files': {
+    // Skip over non-css files
+    router: function (filepath) {
+      // Grab the extension
+      var extname = path.extname(filepath);
+
+      // If the file is a .css, extract it
+      if (extname === '.css') {
+        return filepath;
+      } else {
+      // Otherwise, skip it
+        return null;
+      }
+    }
+
+    src: ['bootstrap.css'],
+    dest: 'bootstrap-css/'
   }
 }
 ```
