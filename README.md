@@ -125,6 +125,10 @@ zip: {
 The `router` option allows for adjust file paths on a per-file basis. This *cannot* be used with `cwd` since there are ordering conflicts.
 
 ```js
+// This example requires using node's `path` module
+var path = require('path');
+
+// Inside grunt config
 zip: {
   'using-router': {
     // `router` receives the path from grunt (e.g. js/main.js)
