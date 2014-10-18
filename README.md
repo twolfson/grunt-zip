@@ -121,58 +121,75 @@ zip: {
 }
 ```
 
-    // Adjust file paths via `router` for complex cases
-    site: {
-      // `router` receives the path from grunt (e.g. js/main.js)
-      // The path it returns is what the file contents are saved as (e.g. all/main.js)
-      // This CANNOT be used with `cwd` since there are potential ordering issues.
-      router: function (filepath) {
-        // Route each file to all/{{filename}}
-        var filename = path.basename(filepath);
-        return 'all/' + filename;
-      }
+#### Using `router`
+The `router` option allows for adjust file paths on a per-file basis. This *cannot* be used with `cwd` since there are ordering conflicts.
 
-      // Files will zip to 'main.js' and 'main.css'
-      src: ['js/main.js', 'css/main.css'],
-      dest: 'site.zip'
-    },
-
-    // If you want to use the 'DEFLATE' compression algorithm, encode data in base64, or include dotfiles, you must opt-in to it
-    'even-more-widgets': {
-      src: ['corkscrew.js', 'sillyStraw.js'],
-      dest: 'evenMoreWidgets.zip',
-
-      // Setting for DEFLATE compression
-      compression: 'DEFLATE',
-
-      // Setting for base64 encoding
-      base64: true,
-
-      // Setting to include dotfiles (e.g. .travis.yml)
-      dot: true
-    },
-
-    // Skip/exclude files via `router`
-    zipJsOnly: {
-      // If router returns a falsy varaible, the file will be skipped
-      router: function (filepath) {
-        // Grab the extension
-        var extname = path.extname(filepath);
-
-        // If the file is a .js, add it to the zip
-        if (extname === '.js') {
-          return filepath;
-        } else {
-        // Otherwise, skip it
-          return null;
-        }
-      }
-
-      src: ['js/main.js', 'css/main.css'],
-      dest: 'jsOnly.zip'
+```js
+zip: {
+  'using-router': {
+    // `router` receives the path from grunt (e.g. js/main.js)
+    // The path it returns is what the file contents are saved as (e.g. all/main.js)
+    router: function (filepath) {
+      // Route each file to all/{{filename}}
+      var filename = path.basename(filepath);
+      return 'all/' + filename;
     }
+
+    // Files will zip to 'main.js' and 'main.css'
+    src: ['js/main.js', 'css/main.css'],
+    dest: 'files.zip'
   }
-});
+}
+```
+
+#### Remaining options
+We allow for specifying the `DEFLATE` comrpession algorithm, base64 encoding, and including `dotfiles` (e.g. `.travis.yml`) via the following options:
+
+```js
+zip: {
+  'using-delate': {
+    src: ['file.js'],
+    dest: 'files.zip',
+    compression: 'DEFLATE'
+  },
+  'using-base64': {
+    src: ['file.js'],
+    dest: 'files.zip',
+    base64: true
+  }
+  'including-dotfiles': {
+    src: ['file.js'],
+    dest: 'files.zip',
+    dot: true
+  }
+}
+```
+
+## Examples
+### Skipping files during `zip`
+`zip's router` allows for returning `null` to skip over a file.
+
+```js
+zip: {
+  'skip-files': {
+    // Skip over non-js files
+    router: function (filepath) {
+      // Grab the extension
+      var extname = path.extname(filepath);
+
+      // If the file is a .js, add it to the zip
+      if (extname === '.js') {
+        return filepath;
+      } else {
+      // Otherwise, skip it
+        return null;
+      }
+    }
+
+    src: ['js/main.js', 'css/main.css'],
+    dest: 'js-only.zip'
+  }
+}
 ```
 
 ### unzip
