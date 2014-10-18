@@ -21,7 +21,7 @@ Compress files into a `zip` file
 ```js
 // Inside your Gruntfile.js
 module.exports = function (grunt) {
-  // Define a zip
+  // Define a zip task
   grunt.initConfig({
     zip: {
       'location/to/zip/to.zip': ['file-to-zip.js', 'another-file.css']
@@ -39,6 +39,34 @@ Now, we can run our task:
 $ grunt zip
 Running "zip:location/to/zip/to.zip" (zip) task
 File "location/to/zip/to.zip" created.
+
+Done, without errors.
+```
+
+### unzip
+Extract files from a `zip` file
+
+```js
+// Inside your Gruntfile.js
+module.exports = function (grunt) {
+  // Define an unzip task
+  grunt.initConfig({
+    unzip: {
+      'location/to/extract/to/': 'file/to/extract.zip'
+    }
+  });
+
+  // Load in `grunt-zip`
+  grunt.loadNpmTasks('grunt-zip');
+};
+```
+
+Now, we can run our task:
+
+```bash
+$ grunt unzip
+Running "unzip:location/to/extract/to/" (unzip) task
+Created "location/to/extract/to/" directory
 
 Done, without errors.
 ```
