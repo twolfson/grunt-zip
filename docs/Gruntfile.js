@@ -2,10 +2,10 @@ module.exports = function (grunt) {
   // Define a zip
   grunt.initConfig({
     zip: {
-      'location/to/zip/to.zip': ['file/to/zip.js', 'another/file.css']
+      'location/to/zip/files.zip': ['file/to/zip.js', 'another/file.css']
     },
     unzip: {
-      'location/to/extract/to/': 'file/to/extract.zip'
+      'location/to/extract/files/': 'file/to/extract.zip'
     }
   });
 

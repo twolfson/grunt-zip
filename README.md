@@ -24,7 +24,7 @@ module.exports = function (grunt) {
   // Define a zip task
   grunt.initConfig({
     zip: {
-      'location/to/zip/to.zip': ['file-to-zip.js', 'another-file.css']
+      'location/to/zip/files.zip': ['file/to/zip.js', 'another/file.css']
     }
   });
 
@@ -37,8 +37,8 @@ Now, we can run our task:
 
 ```bash
 $ grunt zip
-Running "zip:location/to/zip/to.zip" (zip) task
-File "location/to/zip/to.zip" created.
+Running "zip:location/to/zip/files.zip" (zip) task
+File "location/to/zip/files.zip" created.
 
 Done, without errors.
 ```
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
   // Define an unzip task
   grunt.initConfig({
     unzip: {
-      'location/to/extract/to/': 'file/to/extract.zip'
+      'location/to/extract/files/': 'file/to/extract.zip'
     }
   });
 
@@ -65,23 +65,37 @@ Now, we can run our task:
 
 ```bash
 $ grunt unzip
-Running "unzip:location/to/extract/to/" (unzip) task
-Created "location/to/extract/to/" directory
+Running "unzip:location/to/extract/files/" (unzip) task
+Created "location/to/extract/files/" directory
 
 Done, without errors.
 ```
 
 ## Documentation
-`grunt-zip` introduces two grunt tasks: zip and unzip.
-
 ### zip
-```js
-grunt.initConfig({
-  zip: {
-    // We accept short syntax
-    // 'destinationZip': ['firstFileToZip', 'secondFileToZip', ...]
-    'acme.zip': ['index.html', 'rocket.js'],
+#### Short format
+The short format relies on [`grunt's` support of `{dest: src}`][grunt-short-format]
 
+[grunt-short-format]: http://gruntjs.com/configuring-tasks#older-formats
+
+```js
+zip: {
+  'location/to/zip/to.zip': ['file/to/zip.js', 'another/file.css']
+}
+```
+
+This format is suggested only if you don't need to run `zip` tasks separately
+
+```bash
+grunt zip
+```
+
+If you want to run this task standalone, it must be executed via:
+
+```bash
+grunt zip:dest
+# grunt zip:location/to/zip/to.zip
+```
     // As well as standard grunt sytax
     widgets: {
       // Files to zip together
