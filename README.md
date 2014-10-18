@@ -1,18 +1,47 @@
 # grunt-zip [![Build status](https://travis-ci.org/twolfson/grunt-zip.png?branch=master)](https://travis-ci.org/twolfson/grunt-zip)
 
-Zip and unzip files via a grunt plugin
+Zip and unzip files via a [grunt][] plugin
 
-## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-zip`
+This was created for dependency management via [`grunt-curl`][] and [`grunt-zip`][] as a low-tech alternative to `bower` and similar solutions.
 
-Then add this line to your project's `grunt.js` gruntfile:
-
-```javascript
-grunt.loadNpmTasks('grunt-zip');
-```
+http://twolfson.com/2014-01-19-low-tech-dependency-management-via-grunt-tasks
 
 [grunt]: http://gruntjs.com/
-[getting_started]: https://github.com/gruntjs/grunt/blob/master/docs/getting_started.md
+[`grunt-curl`]: https://github.com/twolfson/grunt-curl
+[`grunt-zip`]: https://github.com/twolfson/grunt-zip
+
+## Getting Started
+`grunt-zip` can be installed via npm: `npm install grunt-zip`
+
+`grunt-zip` provides 2 grunt tasks: `zip` and `unzip`
+
+### zip
+Compress files into a `zip` file
+
+```js
+// Inside your Gruntfile.js
+module.exports = function (grunt) {
+  // Define a zip
+  grunt.initConfig({
+    zip: {
+      'location/to/zip/to.zip': ['file-to-zip.js', 'another-file.css']
+    }
+  });
+
+  // Load in `grunt-zip`
+  grunt.loadNpmTasks('grunt-zip');
+};
+```
+
+Now, we can run our task:
+
+```bash
+$ grunt zip
+Running "zip:location/to/zip/to.zip" (zip) task
+File "location/to/zip/to.zip" created.
+
+Done, without errors.
+```
 
 ## Documentation
 `grunt-zip` introduces two grunt tasks: zip and unzip.
