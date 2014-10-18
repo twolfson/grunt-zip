@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.16.1 - Rewrote docs to make them more understandable
+
 0.16.0 - Removed legacy filtering of leaf nodes. By @michaelsantiago
 
 0.15.0 - Upgraded to `jszip@2.2.2`, fixes `DEFLATE` issue in #25
