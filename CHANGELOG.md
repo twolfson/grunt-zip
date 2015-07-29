@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.17.0 - Added support to extract UNIX file permissions
+
 0.16.2 - Moved Travis CI to more restrictive `npm` upgrade to fix `node@0.8`
 
 0.16.1 - Rewrote docs to make them more understandable

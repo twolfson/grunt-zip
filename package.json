@@ -1,7 +1,7 @@
 {
   "name": "grunt-zip",
   "description": "Zip and unzip files via a grunt plugin",
-  "version": "0.16.2",
+  "version": "0.17.0",
   "homepage": "https://github.com/twolfson/grunt-zip",
   "author": {
     "name": "Todd Wolfson",
