@@ -73,15 +73,19 @@ module.exports = function(grunt) {
     });
 
     // For each of the srcFiles
+    var useUnixPermissions = data.useUnixPermissions;
     srcFiles.forEach(function (filepath) {
       // Read in the content and add it to the zip
       var input = fs.readFileSync(filepath),
+          inputStats = useUnixPermissions ? fs.statSync(filepath) : null,
           routedPath = router(filepath);
 
       // If it has a path, add it (allows for skipping)
       if (routedPath) {
         grunt.verbose.writeln('Adding file: "' + filepath + '" -> "' + routedPath + '"');
-        zip.file(routedPath, input);
+        zip.file(routedPath, input, {
+          unixPermissions: useUnixPermissions ? inputStats.mode : null
+        });
       }
     });
 
@@ -90,7 +94,11 @@ module.exports = function(grunt) {
     grunt.file.mkdir(destDir);
 
     // Write out the content
-    var output = zip.generate({type: 'nodebuffer', compression: data.compression});
+    var output = zip.generate({
+      type: 'nodebuffer',
+      compression: data.compression,
+      platform: useUnixPermissions ? 'UNIX' : 'DOS'
+    });
     fs.writeFileSync(dest, output);
 
     // Fail task if errors were logged.
