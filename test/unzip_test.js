@@ -75,7 +75,7 @@ describe('A grunt `unzip` task', function () {
     });
   });
 
-  describe('unzipping a file with permissions on its files', function () {
+  describe.only('unzipping a file with permissions on its files', function () {
     gruntUtils.runTask('unzip:permissioned');
 
     it('preserves the permissions', function () {

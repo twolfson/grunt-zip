@@ -164,6 +164,7 @@ module.exports = function(grunt) {
             // Write out the content
             grunt.verbose.writeln('Writing file: "' + filepath + '"');
             grunt.file.mkdir(fileDir);
+            console.log('wat', fileObj.unixPermissions, fileObj);
             fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
           }
         }
