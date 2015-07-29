@@ -15,7 +15,7 @@ http://twolfson.com/2014-01-19-low-tech-dependency-management-via-grunt-tasks
 - Zip and unzip support
 - Per-file renaming/routing via `router` option
 - File skipping via `router` option
-- Preservation of file permissions
+- Preservation of UNIX file permissions during extraction
 
 ## Getting Started
 `grunt-zip` can be installed via npm: `npm install grunt-zip`
