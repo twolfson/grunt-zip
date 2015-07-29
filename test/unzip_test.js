@@ -80,7 +80,7 @@ describe('A grunt `unzip` task', function () {
 
     it('preserves the permissions', function () {
       var stats = fs.statSync('actual/permissioned/permissioned-file');
-      expect(stats.mode).to.equal(0600);
+      expect(stats.mode).to.equal(0100600);
     });
   });
 });
