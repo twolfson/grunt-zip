@@ -10,6 +10,13 @@ http://twolfson.com/2014-01-19-low-tech-dependency-management-via-grunt-tasks
 [`grunt-curl`]: https://github.com/twolfson/grunt-curl
 [`grunt-zip`]: https://github.com/twolfson/grunt-zip
 
+**Features**
+
+- Zip and unzip support
+- Per-file renaming/routing via `router` option
+- File skipping via `router` option
+- Preservation of file permissions
+
 ## Getting Started
 `grunt-zip` can be installed via npm: `npm install grunt-zip`
 
