@@ -87,6 +87,10 @@ module.exports = function (grunt) {
         src: 'test_files/empty.zip',
         dest: 'actual/empty'
       },
+      permissioned: {
+        src: 'test_files/permissioned.zip',
+        dest: 'actual/permissioned'
+      },
       'test-zip-nested': {
         src: 'actual/nested_zip/file.zip',
         dest: 'actual/nested_zip/unzip'

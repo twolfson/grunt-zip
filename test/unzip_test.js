@@ -74,4 +74,13 @@ describe('A grunt `unzip` task', function () {
       expect(stats.isDirectory()).to.equal(true);
     });
   });
+
+  describe('unzipping a file with permissions on its files', function () {
+    gruntUtils.runTask('unzip:permissioned');
+
+    it('preserves the permissions', function () {
+      var stats = fs.statSync('actual/permissioned/permissioned-file');
+      expect(stats.mode).to.equal(0600);
+    });
+  });
 });
