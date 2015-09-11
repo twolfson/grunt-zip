@@ -9,7 +9,7 @@ describe('A grunt `zip` task', function () {
     gruntUtils.runTask('zip:single');
 
     it('matches the expected output', function () {
-      fsUtils.assertCloseFiles('single_zip/file.zip', 50);
+      fsUtils.assertCloseFiles('single_zip/file.zip', 150);
     });
   });
 
@@ -17,7 +17,7 @@ describe('A grunt `zip` task', function () {
     gruntUtils.runTask('zip:multi');
 
     it('matches the expected output', function () {
-      fsUtils.assertCloseFiles('multi_zip/file.zip', 50);
+      fsUtils.assertCloseFiles('multi_zip/file.zip', 150);
     });
   });
 
