@@ -154,7 +154,7 @@ zip: {
 ```
 
 #### Remaining options
-We allow for specifying the `DEFLATE` comrpession algorithm, base64 encoding, and including `dotfiles` (e.g. `.travis.yml`) via the following options:
+We allow for specifying the `DEFLATE` compression algorithm, base64 encoding, and including `dotfiles` (e.g. `.travis.yml`) via the following options:
 
 ```js
 zip: {
