@@ -131,6 +131,8 @@ module.exports = function(grunt) {
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
+      var symlinks = [];
+
       // Iterate over the files
       filenames.forEach(function (filename) {
         // Find the content
@@ -154,11 +156,21 @@ module.exports = function(grunt) {
             var fileDir = path.dirname(filepath);
 
             // Write out the content
-            grunt.verbose.writeln('Writing file: "' + filepath + '"');
             grunt.file.mkdir(fileDir);
-            fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
+            if ((fileObj.unixPermissions & 0xf000) === 0xa000) {
+              symlinks.push([filepath, content]);
+            } else {
+              grunt.verbose.writeln('Writing file: "' + filepath + '"');
+              fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
+            }
           }
         }
+      });
+
+      // Process symlinks at the end, to ensure that the target files have been extracted
+      symlinks.forEach(function (symlink) {
+        grunt.verbose.writeln('Creating symbolic link from: "' + symlink[0] + '" to "' + symlink[1] + '"');
+        fs.symlinkSync(symlink[1], symlink[0]);
       });
     });
 
