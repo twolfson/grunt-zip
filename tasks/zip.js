@@ -158,7 +158,7 @@ module.exports = function(grunt) {
             // Write out the content
             grunt.file.mkdir(fileDir);
             if ((fileObj.unixPermissions & 0xf000) === 0xa000) {
-              symlinks.push([filepath, content]);
+              symlinks.push([filepath, content.toString('utf8')]);
             } else {
               grunt.verbose.writeln('Writing file: "' + filepath + '"');
               fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
