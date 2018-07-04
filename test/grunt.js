@@ -115,6 +115,10 @@ module.exports = function (grunt) {
         src: 'actual/skip_files_zip/file.zip',
         dest: 'actual/skip_files_zip/unzip'
       },
+      symlinks: {
+        src: 'test_files/symlinks.zip',
+        dest: 'actual/symlinks'
+      }
     }
   });
 

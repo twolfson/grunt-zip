@@ -154,9 +154,15 @@ module.exports = function(grunt) {
             var fileDir = path.dirname(filepath);
 
             // Write out the content
-            grunt.verbose.writeln('Writing file: "' + filepath + '"');
             grunt.file.mkdir(fileDir);
-            fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
+            if ((fileObj.unixPermissions & 0xf000) === 0xa000) {
+              var target = content.toString('utf8');
+              grunt.verbose.writeln('Creating symbolic link from: "' + filepath + '" to "' + target + '"');
+              fs.symlinkSync(target, filepath);
+            } else {
+              grunt.verbose.writeln('Writing file: "' + filepath + '"');
+              fs.writeFileSync(filepath, content, {mode: fileObj.unixPermissions});
+            }
           }
         }
       });

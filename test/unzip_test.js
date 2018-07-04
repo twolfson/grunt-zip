@@ -83,4 +83,20 @@ describe('A grunt `unzip` task', function () {
       expect(stats.mode).to.equal(0100600);
     });
   });
+
+  if (process.platform !== 'win32') {
+    describe('unzipping a file with symbolic links', function () {
+      gruntUtils.runTask('unzip:symlinks');
+
+      it('creates the symbolic links', function () {
+        expect(fs.lstatSync('actual/symlinks/file_link').isSymbolicLink()).to.equal(true);
+        expect(fs.lstatSync('actual/symlinks/dir_link').isSymbolicLink()).to.equal(true);
+      });
+
+      it('restores the targets of the links', function () {
+        expect(fs.readFileSync('actual/symlinks/file_link', 'utf8')).to.equal('harpsichord\n');
+        expect(fs.readdirSync('actual/symlinks/dir_link')).to.deep.equal(['file2']);
+      });
+    });
+  }
 });
