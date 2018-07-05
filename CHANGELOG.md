@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.18.1 - Fixed symlinking when a file already exists, via @octachrome in #53
+
 0.18.0 - Added symlink support via @octachrome in #52. Fixes #41
 
 0.17.1 - Repaired test status and adjusted node version support
