@@ -17,7 +17,7 @@ exports.runTask = function (task) {
       that.stderr = stderr;
 
       // Callback
-      done();
+      done(err);
     });
   });
 
