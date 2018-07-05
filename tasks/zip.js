@@ -158,6 +158,15 @@ module.exports = function(grunt) {
             if ((fileObj.unixPermissions & 0xf000) === 0xa000) {
               var target = content.toString('utf8');
               grunt.verbose.writeln('Creating symbolic link from: "' + filepath + '" to "' + target + '"');
+              // fs.symlinkSync throws EEXIST if a file with the same name as the link already exists
+              try {
+                fs.unlinkSync(filepath);
+              }
+              catch (err) {
+                if (err.code !== 'ENOENT') {
+                  throw err;
+                }
+              }
               fs.symlinkSync(target, filepath);
             } else {
               grunt.verbose.writeln('Writing file: "' + filepath + '"');
