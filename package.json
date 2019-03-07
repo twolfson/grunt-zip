@@ -44,7 +44,7 @@
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-watch": "~0.5.3",
     "mocha": "~1.20.1",
-    "shell-quote": "~1.4.1",
+    "shell-quote": "~1.6.1",
     "underscore.string": "~2.3.1"
   },
   "keywords": [
