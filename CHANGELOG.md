@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.20.0 - Upgraded to jszip@2.7.0 to fix GitHub vulnerability warning and #54
+
 0.19.0 - Updated Node.js versions in Travis CI
 
 0.18.2 - Upgraded to shell-quote@1.6.1 to fix GitHub vulnerability warning
