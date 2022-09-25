@@ -1,4 +1,4 @@
-# grunt-zip [![Build status](https://travis-ci.org/twolfson/grunt-zip.png?branch=master)](https://travis-ci.org/twolfson/grunt-zip)
+# grunt-zip [![Build Status](https://app.travis-ci.com/twolfson/grunt-zip.svg?branch=master)](https://app.travis-ci.com/twolfson/grunt-zip)
 
 Zip and unzip files via a [grunt][] plugin
 
