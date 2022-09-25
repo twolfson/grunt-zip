@@ -1,4 +1,6 @@
 # grunt-zip changelog
+0.19.0 - Updated Node.js versions in Travis CI
+
 0.18.2 - Upgraded to shell-quote@1.6.1 to fix GitHub vulnerability warning
 
 0.18.1 - Fixed symlinking when a file already exists, via @octachrome in #53
