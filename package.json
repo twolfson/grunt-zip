@@ -30,19 +30,19 @@
     "test": "rm -r test/actual &> /dev/null && mocha"
   },
   "dependencies": {
-    "grunt-retro": "~0.6.0",
-    "jszip": "~2.7.0"
+    "grunt-retro": "~0.7.0",
+    "jszip": "~3.10.1"
   },
   "devDependencies": {
     "chai": "~1.9.1",
     "foundry": "~4.4.2",
     "foundry-release-git": "~2.0.2",
     "foundry-release-npm": "~2.0.2",
-    "grunt": "~0.4.0",
-    "grunt-cli": "~0.1.11",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~1.6.1",
+    "grunt-cli": "~1.4.3",
+    "grunt-contrib-clean": "~2.0.1",
+    "grunt-contrib-jshint": "~3.2.0",
+    "grunt-contrib-watch": "~1.1.0",
     "mocha": "~10.0.0",
     "shell-quote": "~1.6.1",
     "underscore.string": "~2.3.1"
