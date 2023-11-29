@@ -128,7 +128,7 @@ module.exports = function(grunt) {
       var input = fs.readFileSync(filepath);
 
       // Unzip it
-      var zip = await Zip.loadAsync(input);
+      var zip = await Zip.loadAsync(input, {checkCRC32: data.checkCRC32});
 
       // Pluck out the files
       var files = zip.files,
