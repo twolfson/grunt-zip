@@ -1,5 +1,5 @@
 # grunt-zip changelog
-0.21.0 - Upgraded to jszip@3.8.0 to fix GitHub vulnerability warning
+1.0.0 - Upgraded to jszip@3.8.0 to fix GitHub vulnerability warning and #55
 
 0.20.0 - Upgraded to jszip@2.7.0 to fix GitHub vulnerability warning and #54
 
