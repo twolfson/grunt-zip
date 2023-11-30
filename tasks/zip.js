@@ -24,9 +24,10 @@ module.exports = function(grunt) {
   // Localize underscore
   var _ = grunt.utils._;
 
-  grunt.registerMultiTask('zip', 'Zip files together', function() {
+  grunt.registerMultiTask('zip', 'Zip files together', async function() {
     // Localize variables
-    var file = this.file,
+    var done = this.async(),
+        file = this.file,
         data = this.data,
         src = file.src,
         dest = file.dest,
@@ -90,7 +91,7 @@ module.exports = function(grunt) {
     grunt.file.mkdir(destDir);
 
     // Write out the content
-    var output = zip.generate({type: 'nodebuffer', compression: data.compression});
+    var output = await zip.generateAsync({type: 'nodebuffer', compression: data.compression});
     fs.writeFileSync(dest, output);
 
     // Fail task if errors were logged.
@@ -98,14 +99,16 @@ module.exports = function(grunt) {
 
     // Otherwise, print a success message.
     grunt.log.writeln('File "' + dest + '" created.');
+    done();
   });
 
   function echo(a) {
     return a;
   }
-  grunt.registerMultiTask('unzip', 'Unzip files into a folder', function() {
+  grunt.registerMultiTask('unzip', 'Unzip files into a folder', async function() {
     // Collect the filepaths we need
-    var file = this.file,
+    var done = this.async(),
+        file = this.file,
         data = this.data,
         src = file.src,
         srcFiles = grunt.file.expand(src),
@@ -120,22 +123,22 @@ module.exports = function(grunt) {
 
     // Iterate over the srcFiles
     var filesWritten = false;
-    srcFiles.forEach(function (filepath) {
+    for (var filepath of srcFiles) {
       // Read in the contents
       var input = fs.readFileSync(filepath);
 
       // Unzip it
-      var zip = new Zip(input, {checkCRC32: data.checkCRC32});
+      var zip = await Zip.loadAsync(input, {checkCRC32: data.checkCRC32});
 
       // Pluck out the files
       var files = zip.files,
           filenames = Object.getOwnPropertyNames(files);
 
       // Iterate over the files
-      filenames.forEach(function (filename) {
+      for (var filename of filenames) {
         // Find the content
         var fileObj = files[filename],
-            content = fileObj.asNodeBuffer(),
+            content = await fileObj.async("nodebuffer"),
             routedName = router(filename);
 
         // If there is a file path (allows for skipping)
@@ -174,8 +177,8 @@ module.exports = function(grunt) {
             }
           }
         }
-      });
-    });
+      }
+    }
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }
@@ -186,6 +189,7 @@ module.exports = function(grunt) {
     } else {
       grunt.log.writeln('No files were found in source. "' + this.file.dest + '" has not been created.');
     }
+    done();
   });
 
 };
